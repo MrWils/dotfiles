@@ -30,6 +30,11 @@ xsetroot -cursor_name left_ptr
 # Keyboard repeat rate
 xset r rate 200 60
 
+# Swap Left Control and Caps Lock
+setxkbmap -option ctrl:swapcaps
+# Make Caps Lock a Control key
+setxkbmap -option ctrl:nocaps
+
 # Screen color temperature
 # The smaller the value, the better it is for your eyes.
 # (less blue light)
