@@ -28,7 +28,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 xsetroot -cursor_name left_ptr
 
 # Keyboard repeat rate
-xset r rate 200 60
+# Increase the first number if you want a higher key press delay
+# Increase the second number if you want that holding a key repeats it at a faster rate
+xset r rate 175 50
 
 # Swap Left Control and Caps Lock
 setxkbmap -option ctrl:swapcaps
