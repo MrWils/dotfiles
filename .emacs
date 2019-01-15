@@ -3,7 +3,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created:
-;; Version: 0.0.1
+;; Version: 0.0.2
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -28,9 +28,12 @@
 (package-initialize)
 
 ;; Melpa repository
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; Always make sure that all packages are installed
-;; (setq use-package-always-ensure t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+;; Install use-package if it is not installed
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 
 ;; Default variables
@@ -70,6 +73,8 @@
   (tooltip-mode 0)
   ;; No cursor blink
   (blink-cursor-mode 0)
+  ;; No fringes (the borders of buffers)
+  (fringe-mode 0)
   
   ;; Code folding
   (allout-mode)
@@ -102,7 +107,7 @@
 ;; Indentation
 (setq custom-tab-width 2)
 
-;; For H mode
+;; For D-mode
 (setq big-custom-tab-width 4)
 
 ;; Don't use tabs
@@ -144,7 +149,6 @@
 ;; Web mode
 (use-package web-mode
   :config
-  (setq web-mode-markup-indent-offset 2)
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -160,7 +164,6 @@
 ;; D mode
 (use-package d-mode
   :config
-  (setq d-mode-markup-indent-offset 4)
   (add-to-list 'auto-mode-alist '("\\.d\\'" . d-mode)))
 
 ;; CSS
@@ -169,8 +172,10 @@
 ;; Beautify
 (use-package web-beautify
   :ensure t
-  :bind (:map web-mode-map ("C-c b" . web-beautify-html)
-              :map js2-mode-map ("C-c b" . web-beautify-js)))
+  :bind (:map web-mode-map
+              ("C-c b" . web-beautify-html)
+              :map js2-mode-map
+              ("C-c b" . web-beautify-js)))
 
 ;; Syntax checking - flycheck
 (use-package flycheck
@@ -182,20 +187,24 @@
 ;; Auto-complete and code suggestions
 ;; Auto-complete
 (use-package auto-complete
-  ;; Avoid competing with org-mode templates.
+  ;; avoid competing with org-mode templates
   :hook (org-mode-hook . (lambda ()
                            (make-local-variable 'ac-stop-words)
                            (loop for template in org-structure-template-alist do
                                  (add-to-list 'ac-stop-words 
                                               (concat "<" (car template)))))))
 
-; Use ido mode for file and buffer Completion when switching buffers
+;; Use ido mode for file and buffer Completion when switching buffers
 (use-package ido
   :config (ido-mode t))
 
 ;; Company
-(use-package company)
-;; (use-package git-complete)
+(use-package company
+  :ensure t
+  :diminish
+  :config
+  ;; enable company mode in all buffers
+  (global-company-mode 1))
 
 ;; Projectile
 (use-package projectile
@@ -204,7 +213,7 @@
   :bind ("C-c p" . projectile-keymap-prefix)
   :config
   ;; enable projectile mode in all buffers
-  (projectile-global-mode 1))
+  (projectile-mode 1))
 
 ;; Weather in emacs
 (use-package wttrin
@@ -217,18 +226,40 @@
 ;; IRC - ERC
 (use-package erc
   :defer t
-  :config (progn (setq erc-hide-list '("JOIN" "PART" "QUIT")
-                       erc-nick "RMW"
-                       erc-port 6665
-                       erc-server "irc.freenode.net")))
+  :config
+  (setq
+   ;; server to use if none is provided
+   erc-server "serverchan.club"
+   ;; port to use if none is provided
+   erc-port 6667
+   ;; nickname to use if none is provided
+   erc-nick "rmw"
+   ;; away nickname to use
+   erc-away-nickname "rmw-away"
+   ;; erc channels to autojoin
+   erc-autojoin-channels-alist '(("serverchan.club" "#scoots"))))
+
+
+;; EMMS
+(use-package emms
+  :ensure t :defer t
+  :config
+  (progn
+    (require 'emms-setup)
+    (emms-standard)
+    (emms-default-players)))
+
 
 ;; MENUS AND COMPLETION (not code completion)
+;; Use minimalist Ivy for most things
+;; ivy is a completion framework which uses the minibuffer.
+;; Turning on ivy-mode enables replacement of lots of built in ido functionality.
+(use-package ivy
+  :ensure t
+  :diminish ivy-mode
+  :config
+  (ivy-mode t))
 
-;; Use minimalist Ivy for most things.
-;; (use-package ivy
-;;   :diminish
-;;   :config
-;; (ivy-mode 1))
 
 ;; EXWM
 (use-package exwm
@@ -244,44 +275,36 @@
 (exwm-config-default)
 
 ;; Fix problems with function
+;; if input is off, wrong screen turns black but I can move the cursor
+;; if input auto, same thing happens
+
 ;; (use-package exwm-randr
 ;;   :after exwm
 ;;   :demand t
 ;;   :preface
 ;;   (defun exwm-change-screen-hook (primary-screen-mode)
-;;   (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
-;;         default-output)
-;;     (with-temp-buffer
-;;       (call-process "xrandr" nil t nil)
-;;       (goto-char (point-min))
-;;       (re-search-forward xrandr-output-regexp nil 'noerror)
-;;       (setq default-output (match-string 1))
-;;       (forward-line)
-;;       (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
-;;           (call-process "xrandr" nil nil nil "--output" default-output "--auto")
-;;         (call-process
-;;          "xrandr" nil nil nil
-;;          "--output" (match-string 1) "--auto")
-;;          ;;"--output" default-output primary-screen-mode)
-;;         (setq exwm-randr-workspace-output-plist (list 0 (match-string 1)))))))
-;;    :hook (exwm-randr-screen-change-hook . (lambda () (exwm-change-screen-hook "--off")))
-;;    :init (lambda () (exwm-change-screen-hook "--off"))
-;;    :config (exwm-randr-enable))
+;;     (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
+;;           default-output)
+;;       (with-temp-buffer
+;;         (call-process "xrandr" nil t nil)
+;;         (goto-char (point-min))
+;;         (re-search-forward xrandr-output-regexp nil 'noerror)
+;;         (setq default-output (match-string 1))
+;;         (forward-line)
+;;         (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
+;;             (call-process "xrandr" nil nil nil "--output" default-output "--auto")
+;;           (call-process
+;;            "xrandr" nil nil nil
+;;            "--output" (match-string 1) "--auto")
+;;           "--output" default-output primary-screen-mode)
+;;         (setq exwm-randr-workspace-monitor-plist (list 0 (match-string 1))))))
+;;   :hook (exwm-randr-screen-change-hook . (lambda () (exwm-change-screen-hook "--off")))
+;;   :init (lambda () (exwm-change-screen-hook "--auto"))
+;;   :config (exwm-randr-enable))
+
+;; Enable exwm
+;; (exwm-enable)
 
 ;; TODO bind screen function to keys
 ;; (global-set-key (kbd "M-x ") (exwm-change-screen-hook "off"))
 ;; (global-set-key (kbd "C-P") (exwm-change-screen-hook "auto"))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (company-go go-complete go-autocomplete wttrin web-mode web-beautify use-package typit smart-mode-line projectile magithub exwm emms dired-du darktooth-theme d-mode company-dcd auto-complete))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 16777215)) (:foreground "#FDF4C1" :background "#282828")) (((class color) (min-colors 255)) (:foreground "#ffffaf" :background "#262626")))))
