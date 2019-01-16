@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2018 Robin Wils
+# Copyright (C) 2018-2019 Robin Wils
 
 # Author: Robin Wils
 # Maintainer: Robin Wils
