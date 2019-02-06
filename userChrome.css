@@ -1,0 +1,65 @@
+/*
+    Copyright (C) 2019 Robin Wils
+
+    Author: Robin Wils
+    Maintainer: Robin Wils
+    Created:
+    Version: 0.0.1
+
+    This style is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 3
+    of the License, or (at your option) any later version.
+
+    This style is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this config. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*FIREFOX USERCHROME
+Place this file in the 
+.mozilla/firefox/*.default/chrome/ folder.
+This folder might not exist yet so create it if it does not exist.
+
+hide elements*/
+.urlbar-icon,
+#page-action-buttons,
+#back-button,
+#forward-button,
+#identity-box,
+.tab-close-button,
+.tabs-newtab-button
+{display:none !important}
+
+/*no tabs*/
+#TabsToolbar
+{visibility:collapse}
+
+/*url bar theme*/
+#nav-bar
+{height:20pt !important} 
+
+#nav-bar,
+#urlbar { 
+    background-color:#000 !important;
+    color:#00FF00 !important
+}
+
+#urlbar,
+.searchbar-textbox {
+    font-family:hack !important;
+    font-size:10pt !important;
+    text-align:center !important;
+    vertical-align:center !important;
+    margin:0 !important
+}
+
+.searchbar-textbox,
+.toolbarbutton-badge-stack {
+    border:none !important;
+    border-radius:0 !important
+}
