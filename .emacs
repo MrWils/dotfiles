@@ -3,7 +3,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created:
-;; Version: 0.0.3
+;; Version: 0.0.4
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -29,11 +29,11 @@
 (package-initialize)
 
 
-;; MELPA REPOSITORY
+ ;; MELPA REPOSITORY
 (add-to-list
  'package-archives
  '("melpa" .
-   "http://melpa.org/packages/")
+   "https://melpa.org/packages/")
  t)
 
 
@@ -43,11 +43,16 @@
   (package-install 'use-package))
 
 
+;;; REQUIRE
+(eval-when-compile
+(require 'use-package))
+
+
 ;; VARIABLES
 (setq
  ;; Personal information
  user-full-name "Robin Wils"
- user-mail-address "mrwils@protonmail.com"
+ user-mail-address "mrwils@tutanota.com"
  
  ;; No startup message.
  inhibit-startup-message t
@@ -176,8 +181,10 @@
 
 
 ;; THEME
-(use-package darktooth-theme)
-(load-theme 'darktooth t)
+(use-package darktooth-theme
+  :ensure t
+  :config
+  (load-theme 'darktooth t))
 
 ;; Fonts
 (set-frame-font "Hack-8" nil t)
@@ -206,6 +213,7 @@
 
 ;; Web mode
 (use-package web-mode
+  :ensure t
   :config
   (add-to-list
    'auto-mode-alist
@@ -253,6 +261,7 @@
 
 ;; D-mode
 (use-package d-mode
+  :ensure t
   :config
   (add-to-list
    'auto-mode-alist
@@ -283,6 +292,7 @@
 
 ;; Auto-complete and code suggestions
 (use-package auto-complete
+  :ensure t
   ;; avoid competing with org-mode templates
   :hook
   (org-mode-hook .
@@ -368,6 +378,7 @@
 
 ;; exwm
 (use-package exwm
+  :ensure t
   :demand t
   :hook
   ((exwm-init . display-battery-mode)
