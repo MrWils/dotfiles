@@ -33,7 +33,7 @@
 (add-to-list
  'package-archives
  '("melpa" .
-   "https://melpa.org/packages/")
+   "http://melpa.org/packages/")
  t)
 
 
