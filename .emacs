@@ -344,8 +344,8 @@
   :config
   (setq
    ;; server to use if none is provided
-   erc-server "serverchan.club"
-   ;; port to use if none is provided
+   erc-server "irc.serverchan.club"
+   ;; port to use if no port is provided
    erc-port 6667
    ;; nickname to use if none is provided
    erc-nick "rmw"
