@@ -3,7 +3,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created:
-;; Version: 0.0.4
+;; Version: 0.0.5
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -338,22 +338,30 @@
   (setq wttrin-default-cities
         '("Turnhout", "Hasselt")))
 
+
 ;; IRC - ERC
+;; Use the erc-tls command to launch ERC
+;; erc-tls uses SSL, erc doesn't,
 (use-package erc
   :defer t
   :config
   (setq
    ;; server to use if none is provided
    erc-server "irc.serverchan.club"
+   ;; servers which you can choose from in the menus
+   ;; this currently does not work
+   erc-server-history-list '("irc.serverchan.club",
+                             "irc.lainchan.org")
    ;; port to use if no port is provided
-   erc-port 6667
+   erc-port 6697
    ;; nickname to use if none is provided
    erc-nick "rmw"
    ;; away nickname to use
    erc-away-nickname "rmw-away"
    ;; erc channels to autojoin
    erc-autojoin-channels-alist
-   '(("serverchan.club" "#scoots"))))
+   '(("serverchan.club" "#scoots")
+     ("lainchan.org" "#lainchan"))))
 
 
 ;; EMMS
