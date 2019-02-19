@@ -3,7 +3,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created:
-;; Version: 0.0.6
+;; Version: 0.0.7
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -127,8 +127,16 @@
 ;; with typing "y" or "n"
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; I usually want to delete more whitespace than emacs wants to,
+;; this fixes that.
+(use-package hungry-delete :ensure t :config (global-hungry-delete-mode))
 
 ;; INDENTATION
+;; Force indentation a bit, it does not force it on minimized/compressed files
+(use-package aggressive-indent
+  :ensure t
+  :config (global-aggressive-indent-mode))
+
 ;; web-mode
 ;; html tag in html file
 (setq-local web-mode-markup-indent-offset custom-tab-width)
