@@ -3,7 +3,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created:
-;; Version: 0.0.7
+;; Version: 0.0.8
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -34,6 +34,14 @@
              '("melpa" . "http://melpa.org/packages/") t)
 
 
+;; LESS GARBAGE COLLECTION DURING STARTUP
+;; Emacs should load faster if with this configured. This is only recommended if
+;; your machine has enough RAM, It should work on the most modern machines.
+(setq gc-cons-threshold 64000000)
+(add-hook 'after-init-hook
+          #'(lambda () (setq gc-cons-threshold 800000)))
+
+
 ;; INSTALL USE-PACKAGE IF NOT INSTALLED
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -53,22 +61,16 @@
  inhibit-startup-message t
  ;; No startup-screen
  inhibit-startup-screen t
- ;; Hide the cursor in inactive windows
- cursor-in-non-selected-windows t
  ;; Empty scratch buffer
  initial-scratch-message nil
- ;; No splash screen on startup
- inhibit-splash-screen t
  ;; End sentences with one space
  sentence-end-double-space nil
  ;; No backups
  make-backup-files nil
  ;; Disable dialogs
  use-dialog-box nil
- ;; Integrate with X clipboard
- select-enable-clipboard t
- ;; Ensure clipboard strings are saved into kill ring
- save-interprogram-paste-before-kill t
+ ;; Disable emacs beep
+ visible-bell 1
  ;; Indentation variables
  custom-tab-width 2
  big-custom-tab-width 4)
@@ -79,32 +81,34 @@
  header-line-format (list " " (make-string 79 ?-) "|")
  ;; Forces the messages to 0
  message-log-max nil
+ ;; Set the tab-width
+ tab-width custom-tab-width
  ;; Don't use tabs
  ;; use spaces instead
- indent-tabs-mode nil
- tab-width custom-tab-width)
+ indent-tabs-mode nil)
 
 
 ;; GUI ELEMENTS
-(when window-system
-  ;; Disable GUI elements
-  ;; No toolbar
-  (tool-bar-mode 0)
-  ;; No scrollbar
-  (scroll-bar-mode 0)
-  ;; No toolbar
-  (tooltip-mode 0)
-  ;; No cursor blink
-  (blink-cursor-mode 0)
-  ;; No fringes
-  ;; (borders of buffers)
-  (fringe-mode 0)
-  
-  ;; Code folding
-  (allout-mode)
-  ;; Syntax highlighting
-  (global-font-lock-mode 1))
+;; No cursor blink
+(blink-cursor-mode 0)
 
+
+;; BETTER DEFAULTS
+;; Adds some sane defaults
+;; https://github.com/technomancy/better-defaults
+(use-package better-defaults :ensure t)
+
+(use-package better-shell
+  :ensure t
+  :bind
+  (("C-'" . better-shell-shell)
+   ("C-;" . better-shell-remote-open)))
+
+;; better dired
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (dired-hide-details-mode)
+            (dired-sort-toggle-or-edit)))
 
 ;; BETTER KEYS
 ;; No need for alt key
@@ -127,9 +131,13 @@
 ;; with typing "y" or "n"
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Make it possible to hide minor modes
+(use-package diminish :ensure t)
+
 ;; I usually want to delete more whitespace than emacs wants to,
 ;; this fixes that.
 (use-package hungry-delete :ensure t :config (global-hungry-delete-mode))
+
 
 ;; INDENTATION
 ;; Force indentation a bit, it does not force it on minimized/compressed files
@@ -137,41 +145,18 @@
   :ensure t
   :config (global-aggressive-indent-mode))
 
-;; web-mode
-;; html tag in html file
-(setq-local web-mode-markup-indent-offset custom-tab-width)
-;; css in html file
-(setq-local web-mode-css-indent-offset custom-tab-width)
-;; js code in html file
-(setq-local web-mode-code-indent-offset custom-tab-width)
-
-;; css-mode
-(setq-local css-indent-offset custom-tab-width)
-
-;; D-mode
-(setq-local d-mode-indent-offset big-custom-tab-width)
-
 
 ;; THEME
 (use-package darktooth-theme :ensure t :config (load-theme 'darktooth t))
 
-;; Fonts
-(set-frame-font "Hack-8" nil t)
-(let ((faces '(mode-line
-               mode-line-buffer-id
-               mode-line-emphasis
-               mode-line-highlight
-               mode-line-inactive)))
-  (mapc(lambda (face)
-         (set-face-attribute face nil :font "Hack-10"))
-       faces))
+;; Emacs font
+(add-to-list 'default-frame-alist
+             '(font . "Hack-8"))
 
 
 ;; BUFFERS AND COMPLETIONS
 ;; Unique buffernames
 (use-package uniquify)
-;; I preffer ibuffer over list-buffers
-(defalias 'list-buffers 'ibuffer-other-window)
 
 ;; ido mode - file and buffer completion
 (use-package ido
@@ -179,6 +164,10 @@
   (setq indo-enable-flex-matching t
         ido-everywhere t)
   (ido-mode 1))
+;; Misc collection of ido changes,
+;; including making it behave better with dired’s copying and
+;; renaming commands (such as putting directory as first option).
+(use-package ido-hacks :ensure t)
 
 ;; I use swiper to search.
 ;; Swiper uses counsel and ivy.
@@ -224,33 +213,77 @@
   (global-company-mode 1))
 
 
+;; Yasnippet - template complation for many programming languages
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :config (yas-global-mode 1))
+;; Add some snippets
+(use-package yasnippet-snippets :ensure t)
+
+
 ;; SYNTAX CHECKING
 ;; Flycheck - syntax checker
 (use-package flycheck :ensure t :config (global-flycheck-mode 1))
 
 
-;; MORE PACKAGES
-;; Magit
-(use-package magit :ensure t :bind ("C-c g" . magit-status))
+;; PROGRAMMING
+
+;; Useful hook functions
+(defun untabify-whole-buffer()
+  "Untabifies a whole buffer."
+  (untabify (point-min) (point-max)))
+
+;; C#
+;; (use-package dotnet :ensure t)
+
+;; (use-package csharp-mode
+;;   :ensure t
+;;   :bind (("C-c r r" . 'omnisharp-run-code-action-refactoring)
+;;          ("C-c C-c" . 'recompile))
+;;   :hook (('csharp-mode-hook . omnisharp-mode)
+;;          ('csharp-mode-hook . company-mode)
+;;          ('csharp-mode-hook . dotnet-mode)
+;;          ('csharp-mode-hook . flycheck-mode)
+;;          ('csharp-mode-hook . 'neotree-show))
+;;   :config
+;;   (add-to-list 'auto-mode-alist
+;;                '("\\.cs\\'" . csharp-mode))
+;;   (setq tab-width big-custom-tab-width))
+
+;; (use-package omnisharp :ensure t)
+;; ;; Autocompletion
+;; (eval-after-load
+;;     'company
+;;   '(add-to-list 'company-backends
+;;                 #'company-omnisharp))
+
+
+;; LISP
+(use-package slime
+  :ensure t
+  :commands (slime slime-lisp-mode-hook)
+  :config
+  (setq inferior-lisp-program "sbcl"
+        slime-contribs '(slime-fancy)))
+;; autocomplete for text and code
+(use-package slime-company :ensure t)
 
 ;; Web mode
 (use-package web-mode
   :ensure t
+  :init
+  (defun web-mode-hook ()
+    "Hook for web-mode."
+    ;; HTML indentation
+    (setq-local web-mode-markup-indent-offset custom-tab-width)
+    ;; CSS indentation
+    (setq-local web-mode-css-indent-offset custom-tab-width)
+    ;; JS indentat ion
+    (setq-local web-mode-code-indent-offset custom-tab-width))
+  :hook ((web-mode . web-mode-hook)
+         (web-mode . 'untabify-whole-buffer))
   :config
-  (add-to-list 'auto-mode-alist
-               '("\\.phtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.tpl\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.[agj]sp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.as[cp]x\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.erb\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.mustache\\'" . web-mode))
-  (add-to-list  'auto-mode-alist
-                '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist
                '("\\.html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist
@@ -261,31 +294,47 @@
                '("\\.xml?\\'" . web-mode)))
 
 ;; D-mode
-(use-package d-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist
-               '("\\.d\\'" . d-mode)))
+;; (use-package d-mode
+;;   :ensure t
+;;   :init
+;;   (defun d-mode-hook ()
+;;     "Hook for d-mode."
+;;     (setq-local d-mode-indent-offset
+;;                 big-custom-tab-width))
+;;   :hook (d-mode . d-mode-hook)
+;;   :config
+;;   (add-to-list 'auto-mode-alist
+;;                '("\\.d\\'" . d-mode)))
 
-;; CSS
-(use-package css-mode :defer t)
 
-;; Beautify
-(use-package web-beautify
-  :ensure t
-  :bind
-  (:map web-mode-map ("C-c b" . web-beautify-html)
-        :map js2-mode-map ("C-c b" . web-beautify-js)))
+;; MORE PACKAGES
+;; Magit - git for emacs
+(use-package magit :ensure t :bind ("C-c g" . magit-status))
 
-;; Projectile
+;; Projectile - make it easier to jump to files in a project
 (use-package projectile
   :ensure t
   :bind ("C-c p" . projectile-keymap-prefix)
-  :config (projectile-mode 1))
+  :config
+  (projectile-mode 1)
+  (setq projectile-completion-system 'ivy))
 
 ;; Emacs bindings for browsers
 ;; https://github.com/stsquad/emacs_chrome
-(use-package edit-server :ensure t)
+;; Does not work on icecat, right now.
+;; (use-package edit-server :ensure t)
+
+;; Writegood mode - find common writing problems
+(use-package writegood-mode
+  :ensure t
+  :bind ("C-c w" . writegood-mode))
+
+;; Elfeed - RSS reader
+(use-package elfeed
+  :ensure t
+  :config
+  (setq elfeed-feeds
+        '("http://vault.lunduke.com/LundukeShowMP3.xml")))
 
 ;; Weather in emacs
 (use-package wttrin
@@ -327,6 +376,17 @@
   (progn (require 'emms-setup)
          (emms-standard)
          (emms-default-players)))
+;; Display track titles as scrolling text
+(use-package emms-mode-line-cycle
+  :ensure t
+  :config
+  (emms-mode-line 1)
+  (emms-playing-time 1)
+  (emms-mode-line-cycle 1))
+
+;; PDF-support
+(use-package pdf-tools :ensure t)
+(use-package org-pdfview :ensure t)
 
 ;; EXWM
 (use-package exwm
@@ -341,6 +401,17 @@
 
 (use-package exwm-config :after exwm :demand t)
 (exwm-config-default)
+
+;; EXWM keys
+;; Global EXWM keybindings
+;; next buffer
+(exwm-input-set-key (kbd "C-<tab>") 'next-buffer)
+;; TODO: make this command togglable
+(exwm-input-set-key (kbd "s-<tab>") 'exwm-input-toggle-keyboard)
+
+;; System tray
+;; (require 'exwm-systemtray)
+;; (exwm-systemtray-enable)
 
 ;; Fix problems with function
 ;; if input is off, wrong screen turns black but I can move the cursor
