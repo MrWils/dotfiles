@@ -389,31 +389,34 @@
 (use-package org-pdfview :ensure t)
 
 ;; EXWM
-(use-package exwm
-  :ensure t
-  :demand t
-  :hook ((exwm-init . display-battery-mode)
-         (exwm-init . display-time-mode)
-         (exwm-init . column-number-mode)
-         (exwm-init . line-number-mode)
-         (exwm-init . show-paren-mode)
-         (exwm-init . whitespace-mode)))
+;; uncomment this if you want to use EXWM
+;; You also need to change .xinitrc if you want to run EXWM
+;; (use-package exwm
+;;   :ensure t
+;;   :demand t
+;;   :hook ((exwm-init . display-battery-mode)
+;;          (exwm-init . display-time-mode)
+;;          (exwm-init . column-number-mode)
+;;          (exwm-init . line-number-mode)
+;;          (exwm-init . show-paren-mode)
+;;          (exwm-init . whitespace-mode)))
 
-(use-package exwm-config :after exwm :demand t)
-(exwm-config-default)
+;; (use-package exwm-config :after exwm :demand t)
+;; (exwm-config-default)
 
 ;; EXWM keys
 ;; Global EXWM keybindings
 ;; next buffer
-(exwm-input-set-key (kbd "C-<tab>") 'next-buffer)
+;; (exwm-input-set-key (kbd "C-<tab>") 'next-buffer)
 ;; TODO: make this command togglable
-(exwm-input-set-key (kbd "s-<tab>") 'exwm-input-toggle-keyboard)
+;; (exwm-input-set-key (kbd "s-<tab>") 'exwm-input-toggle-keyboard)
 
 ;; System tray
 ;; (require 'exwm-systemtray)
 ;; (exwm-systemtray-enable)
 
 ;; Fix problems with function
+;; THIS PART OF MY EXWM CONFIG DOES NOT WORK
 ;; if input is off, wrong screen turns black but I can move the cursor
 ;; if input auto, same thing happens
 
