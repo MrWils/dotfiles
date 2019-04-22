@@ -138,6 +138,15 @@
 ;; this fixes that.
 (use-package hungry-delete :ensure t :config (global-hungry-delete-mode))
 
+;; Autoupdate packages
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  ;; Auto update after a week
+  (auto-package-update-maybe))
+
 
 ;; INDENTATION
 ;; Force indentation a bit, it does not force it on minimized/compressed files
