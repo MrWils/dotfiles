@@ -22,14 +22,14 @@
 
 ;;; Commentary:
 ;; Quick Start / installation:
-;; 1. Place config.org into your .emacs.d directory.
+;; 1. Place emacs-init.org into your .emacs.d directory.
 ;; 2. Replace your .emacs file with my .emacs one.
 ;; (It is recommended to backup your .emacs file before you do this)
 
 ;;; Code:
 #+END_SRC
   
-* INITIALZE PACKAGES
+* INITIALIZE PACKAGES
 #+BEGIN_SRC emacs-lisp
 (package-initialize)
 #+END_SRC
@@ -99,7 +99,7 @@ Require use-package.
  ;; Mark column 80 in the header (Clean code matters)
  header-line-format (list " " (make-string 79 ?-) "|")
 
- ;; Forces the messages to 0
+ ;; Force the messages to 0
  message-log-max nil
 
  ;; Set the tab-width
@@ -306,7 +306,7 @@ Yasnippet provides template complation for many programming languages.
   (untabify (point-min) (point-max)))
 #+END_SRC
 
-** LISP
+** Lisp
 #+BEGIN_SRC emacs-lisp
 (use-package slime
   :ensure t
@@ -317,8 +317,7 @@ Yasnippet provides template complation for many programming languages.
 
 ;; autocomplete for text and code
 (use-package slime-company :ensure t)
-#+END_SRC
-
+#+END_S
 ** Web mode
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
@@ -496,7 +495,7 @@ I personally use mplayer for video and music.
 #+END_SRC
 
 ** PDF-support
-This work but it didn't work as easily as expected for me.
+This works but it didn't work as easily as expected for me.
 You might have to play a bit with it.
 #+BEGIN_SRC emacs-lisp
 (use-package pdf-tools :ensure t)

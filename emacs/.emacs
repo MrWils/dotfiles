@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 ;; Quick Start / installation:
-;; 1. Place config.org into your .emacs.d directory.
+;; 1. Place emacs-init.org into your .emacs.d directory.
 ;; 2. Replace your .emacs file with my .emacs one.
 ;; (It is recommended to backup your .emacs file before you do this)
 
