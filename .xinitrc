@@ -32,15 +32,10 @@ xsetroot -cursor_name left_ptr
 # Increase the second number if you want that holding a key repeats it at a faster rate
 xset r rate 175 50
 
-# Swap Left Control and Caps Lock
-setxkbmap -option ctrl:swapcaps
-# Make Caps Lock a Control key
-setxkbmap -option ctrl:nocaps
-
 # Screen color temperature
 # The smaller the value, the better it is for your eyes.
 # (less blue light)
 sct 2000
 
 # Start Emacs
-exec dbus-launch --exit-with-session emacs
+# exec dbus-launch --exit-with-session emacs
