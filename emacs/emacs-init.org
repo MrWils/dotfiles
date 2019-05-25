@@ -317,7 +317,8 @@ Yasnippet provides template complation for many programming languages.
 
 ;; autocomplete for text and code
 (use-package slime-company :ensure t)
-#+END_S
+#+END_SRC
+
 ** Web mode
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
