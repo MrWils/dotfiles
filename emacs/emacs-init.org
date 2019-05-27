@@ -503,6 +503,11 @@ You might have to play a bit with it.
 (use-package org-pdfview :ensure t)
 #+END_SRC
 
+** org-mode better html export support
+#+BEGIN_SRC emacs-lisp
+(use-package htmlize :ensure t)
+#+END_SRC
+
 ** EXWM
 I used to use EXWM but EXWM overrides shortcuts for blender and GIMP.
 There is a way around this issue but I will use XFCE for now.
