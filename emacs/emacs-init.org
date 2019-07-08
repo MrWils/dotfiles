@@ -5,7 +5,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created: 14 Jul, 2018
-;; Version: 0.0.9
+;; Version: 0.1.0
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -161,6 +161,12 @@ Minimize the use of meta.
              (let ((buffer "*Completions*"))
                (and (get-buffer buffer)
                     (kill-buffer buffer)))))
+#+END_SRC
+
+** Unset the default suspend-frame shortcut
+The default C-z command minimizes GNU emacs. I don't like that.
+#+BEGIN_SRC emacs-lisp
+(global-unset-key "\C-z")
 #+END_SRC
 
 ** Replace typing "yes" or "no" with typing "y" or "n"
