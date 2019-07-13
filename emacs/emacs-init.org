@@ -524,9 +524,17 @@ I personally use mplayer for video and music.
   :ensure t
   :defer t
   :config
-  (progn (require 'emms-setup)
-         (emms-standard)
-         (emms-default-players)))
+  (require 'emms-setup)
+  (emms-standard)
+  (emms-default-players)
+  (setq emms-source-file-default-directory "~/Music/")
+  ;; Global keybindings for EMMS
+  (global-set-key (kbd "s-SPC") 'emms-pause)
+  (global-set-key (kbd "s-<left>") 'emms-previous)
+  (global-set-key (kbd "s-<right>") 'emms-next)
+  (global-set-key (kbd "s-<up>") 'emms-volume-raise)
+  (global-set-key (kbd "s-<down>") 'emms-volume-lower)
+  (global-set-key (kbd "s-s") 'emms-shuffle))
 
 ;; Display track titles as scrolling text
 (use-package emms-mode-line-cycle
