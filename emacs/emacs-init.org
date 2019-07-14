@@ -14,7 +14,7 @@
 
 ;; This config is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
@@ -28,7 +28,6 @@
 
 ;;; Code:
 #+END_SRC
-  
 * INITIALIZE PACKAGES
 #+BEGIN_SRC emacs-lisp
 (package-initialize)
@@ -37,8 +36,8 @@
 * REPOSITORIES
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-#+END_SRC             
+						 '("melpa" . "http://melpa.org/packages/") t)
+#+END_SRC
 
 * LESS GARBAGE COLLECTION DURING STARTUP
 Emacs should load faster if with this configured. This is only recommended if
@@ -46,14 +45,14 @@ your machine has enough RAM, It should work on the most modern machines.
 #+BEGIN_SRC emacs-lisp
 (setq gc-cons-threshold 64000000)
 (add-hook 'after-init-hook
-          #'(lambda () (setq gc-cons-threshold 800000)))
+					#'(lambda () (setq gc-cons-threshold 800000)))
 #+END_SRC
 
 * INSTALL USE-PACKAGE IF NOT INSTALLED
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+	(package-refresh-contents)
+	(package-install 'use-package))
 #+END_SRC
 
 * REQUIRE
@@ -127,18 +126,18 @@ You can find more info about these defaults on [[https://github.com/technomancy/
 ** Better shell
 #+BEGIN_SRC emacs-lisp
 (use-package better-shell
-  :ensure t
-  :bind
-  (("C-'" . better-shell-shell)
-   ("C-;" . better-shell-remote-open)))
+	:ensure t
+	:bind
+	(("C-'" . better-shell-shell)
+	 ("C-;" . better-shell-remote-open)))
 #+END_SRC
 
 ** Better dired
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook
-          (lambda ()
-            (dired-hide-details-mode)
-            (dired-sort-toggle-or-edit)))
+					(lambda ()
+						(dired-hide-details-mode)
+						(dired-sort-toggle-or-edit)))
 #+END_SRC
 
 ** Better keys
@@ -153,9 +152,9 @@ This file contains some (setq) variables. There is probably a better
 and more secure way to do this.
 #+BEGIN_SRC emacs-lisp
 (defun load-if-exists (file)
-  "load the elisp file only if it exists and if it is readable"
-  (if (file-readable-p file) 
-      (load-file file)))
+	"load the elisp file only if it exists and if it is readable"
+	(if (file-readable-p file) 
+			(load-file file)))
 
 ;; For example: (load-if-exists "~/.secrets.el")
 #+END_SRC
@@ -168,10 +167,10 @@ and more secure way to do this.
 ** Disable *Completions* buffer
 #+BEGIN_SRC emacs-lisp
 (add-hook 'minibuffer-exit-hook
-          '(lambda ()
-             (let ((buffer "*Completions*"))
-               (and (get-buffer buffer)
-                    (kill-buffer buffer)))))
+					'(lambda ()
+						 (let ((buffer "*Completions*"))
+							 (and (get-buffer buffer)
+										(kill-buffer buffer)))))
 #+END_SRC
 
 ** Unset the default suspend-frame shortcut
@@ -200,12 +199,12 @@ this fixes that.
 ** Autoupdate packages
 #+BEGIN_SRC emacs-lisp
 (use-package auto-package-update
-  :ensure t
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  ;; Auto update after a week
-  (auto-package-update-maybe))
+	:ensure t
+	:config
+	(setq auto-package-update-delete-old-versions t)
+	(setq auto-package-update-hide-results t)
+	;; Auto update after a week
+	(auto-package-update-maybe))
 #+END_SRC
 
 * INDENTATION
@@ -213,8 +212,8 @@ this fixes that.
 Force indentation a bit, it does not force it on minimized/compressed files
 #+BEGIN_SRC emacs-lisp
 (use-package aggressive-indent
-  :ensure t
-  :config (global-aggressive-indent-mode))
+	:ensure t
+	:config (global-aggressive-indent-mode))
 #+END_SRC
 * THEME
 I like the darktooth theme and the Hack font.
@@ -226,7 +225,7 @@ I want to automate the font installation in the future.
 
 ;; Emacs font
 (add-to-list 'default-frame-alist
-             '(font . "Hack-8"))
+						 '(font . "Hack-8"))
 #+END_SRC
 
 * BUFFERS AND COMPLETIONS
@@ -238,10 +237,10 @@ I want to automate the font installation in the future.
 ** ido mode - file and buffer completion
 #+BEGIN_SRC emacs-lisp
 (use-package ido
-  :config
-  (setq indo-enable-flex-matching t
-        ido-everywhere t)
-  (ido-mode 1))
+	:config
+	(setq indo-enable-flex-matching t
+				ido-everywhere t)
+	(ido-mode 1))
 
 ;; Misc collection of ido changes,
 ;; including making it behave better with dired’s copying and
@@ -256,53 +255,53 @@ Ivy is a completion framework which uses the minibuffer.
 Counsel is a collection of ivy enhanged version of common emacs commands.
 #+BEGIN_SRC emacs-lisp
 (use-package counsel
-  :ensure t
-  :bind
-  (("M-y" . counsel-yank-pop)
-   :map ivy-minibuffer-map
-   ("M-y" . ivy-next-line)))
+	:ensure t
+	:bind
+	(("M-y" . counsel-yank-pop)
+	 :map ivy-minibuffer-map
+	 ("M-y" . ivy-next-line)))
 
 (use-package ivy
-  :ensure t
-  :diminish (ivy-mode)
-  :bind (("C-x b" . ivy-switch-buffer))
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d "
-        ivy-display-style 'fancy))
+	:ensure t
+	:diminish (ivy-mode)
+	:bind (("C-x b" . ivy-switch-buffer))
+	:config
+	(ivy-mode 1)
+	(setq ivy-use-virtual-buffers t
+				ivy-count-format "%d/%d "
+				ivy-display-style 'fancy))
 
 (use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)
-         ("C-r" . swiper)
-         ("C-c C-r" . ivy-resume)
-         ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file))
-  :config
-  (define-key read-expression-map
-    (kbd "C-r") 'counsel-expression-history))
+	:ensure t
+	:bind (("C-s" . swiper)
+				 ("C-r" . swiper)
+				 ("C-c C-r" . ivy-resume)
+				 ("M-x" . counsel-M-x)
+				 ("C-x C-f" . counsel-find-file))
+	:config
+	(define-key read-expression-map
+		(kbd "C-r") 'counsel-expression-history))
 #+END_SRC
 
 ** Company 
 Autocompletes text and code.
 #+BEGIN_SRC emacs-lisp
 (use-package company
-  :ensure t
-  :diminish
-  :config
-  (setq company-idle-delay 0
-        company-minimum-prefix-length 3)
-  (global-company-mode 1))
+	:ensure t
+	:diminish
+	:config
+	(setq company-idle-delay 0
+				company-minimum-prefix-length 3)
+	(global-company-mode 1))
 #+END_SRC
 
 ** Yasnippet 
 Yasnippet provides template complation for many programming languages.
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
-  :ensure t
-  :diminish yas-minor-mode
-  :config (yas-global-mode 1))
+	:ensure t
+	:diminish yas-minor-mode
+	:config (yas-global-mode 1))
 ;; Add some snippets
 (use-package yasnippet-snippets :ensure t)
 #+END_SRC
@@ -318,19 +317,19 @@ Yasnippet provides template complation for many programming languages.
 ** Useful hook functions
 #+BEGIN_SRC emacs-lisp
 (defun untabify-whole-buffer()
-  "Untabifies a whole buffer."
-  (interactive)
-  (untabify (point-min) (point-max)))
+	"Untabifies a whole buffer."
+	(interactive)
+	(untabify (point-min) (point-max)))
 #+END_SRC
 
 ** Lisp
 #+BEGIN_SRC emacs-lisp
 (use-package slime
-  :ensure t
-  :commands (slime slime-lisp-mode-hook)
-  :config
-  (setq inferior-lisp-program "sbcl"
-        slime-contribs '(slime-fancy)))
+	:ensure t
+	:commands (slime slime-lisp-mode-hook)
+	:config
+	(setq inferior-lisp-program "sbcl"
+				slime-contribs '(slime-fancy)))
 
 ;; autocomplete for text and code
 (use-package slime-company :ensure t)
@@ -339,27 +338,26 @@ Yasnippet provides template complation for many programming languages.
 ** Web mode
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
-  :ensure t
-  :init
-  (defun web-mode-hook ()
-    "Hook for web-mode."
-    ;; HTML indentation
-    (setq-local web-mode-markup-indent-offset custom-tab-width)
-    ;; CSS indentation
-    (setq-local web-mode-css-indent-offset custom-tab-width)
-    ;; JS indentat ion
-    (setq-local web-mode-code-indent-offset custom-tab-width))
-  :hook ((web-mode . web-mode-hook)
-         (web-mode . 'untabify-whole-buffer))
-  :config
-  (add-to-list 'auto-mode-alist
-               '("\\.html?\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.js?\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.css?\\'" . web-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\.xml?\\'" . web-mode)))
+	:ensure t
+	:init
+	(progn
+     (setq web-mode-enable-current-element-highlight t)
+     (setq web-mode-enable-current-column-highlight t)
+     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+     (add-to-list 'auto-mode-alist '("\\.js?\\'"   . web-mode))
+     (add-to-list 'auto-mode-alist '("\\.css?\\'"  . web-mode))
+	   (add-to-list 'auto-mode-alist '("\\.xml?\\'"  . web-mode))
+     (defun my-web-mode-hook ()
+       "Hooks for Web mode."
+       ;; HTML indentation
+		   (setq-local web-mode-markup-indent-offset custom-tab-width)
+		   ;; CSS indentation
+		   (setq-local web-mode-css-indent-offset custom-tab-width)
+		   ;; JS indentat ion
+		   (setq-local web-mode-code-indent-offset custom-tab-width)
+       ;; Replace all tabs with spaces
+       (untabify-whole-buffer))
+     (add-hook 'web-mode-hook 'my-web-mode-hook)))
 #+END_SRC
 
 ** D-mode
@@ -367,16 +365,16 @@ This should work but I don't program a lot of D so it is commented out for
 now.
 #+BEGIN_SRC emacs-lisp
 ;; (use-package d-mode
-;;   :ensure t
-;;   :init
-;;   (defun d-mode-hook ()
-;;     "Hook for d-mode."
-;;     (setq-local d-mode-indent-offset
-;;                 big-custom-tab-width))
-;;   :hook (d-mode . d-mode-hook)
-;;   :config
-;;   (add-to-list 'auto-mode-alist
-;;                '("\\.d\\'" . d-mode)))
+;;	 :ensure t
+;;	 :init
+;;	 (defun d-mode-hook ()
+;;		 "Hook for d-mode."
+;;		 (setq-local d-mode-indent-offset
+;;								 big-custom-tab-width))
+;;	 :hook (d-mode . d-mode-hook)
+;;	 :config
+;;	 (add-to-list 'auto-mode-alist
+;;								'("\\.d\\'" . d-mode)))
 #+END_SRC
 
 ** Incomplete functions or things which I don't use
@@ -385,25 +383,25 @@ now.
 ;; (use-package dotnet :ensure t)
 
 ;; (use-package csharp-mode
-;;   :ensure t
-;;   :bind (("C-c r r" . 'omnisharp-run-code-action-refactoring)
-;;          ("C-c C-c" . 'recompile))
-;;   :hook (('csharp-mode-hook . omnisharp-mode)
-;;          ('csharp-mode-hook . company-mode)
-;;          ('csharp-mode-hook . dotnet-mode)
-;;          ('csharp-mode-hook . flycheck-mode)
-;;          ('csharp-mode-hook . 'neotree-show))
-;;   :config
-;;   (add-to-list 'auto-mode-alist
-;;                '("\\.cs\\'" . csharp-mode))
-;;   (setq tab-width big-custom-tab-width))
+;;	 :ensure t
+;;	 :bind (("C-c r r" . 'omnisharp-run-code-action-refactoring)
+;;					("C-c C-c" . 'recompile))
+;;	 :hook (('csharp-mode-hook . omnisharp-mode)
+;;					('csharp-mode-hook . company-mode)
+;;					('csharp-mode-hook . dotnet-mode)
+;;					('csharp-mode-hook . flycheck-mode)
+;;					('csharp-mode-hook . 'neotree-show))
+;;	 :config
+;;	 (add-to-list 'auto-mode-alist
+;;								'("\\.cs\\'" . csharp-mode))
+;;	 (setq tab-width big-custom-tab-width))
 
 ;; (use-package omnisharp :ensure t)
 ;; ;; Autocompletion
 ;; (eval-after-load
-;;     'company
-;;   '(add-to-list 'company-backends
-;;                 #'company-omnisharp))
+;;		 'company
+;;	 '(add-to-list 'company-backends
+;;								 #'company-omnisharp))
 #+END_SRC
 
 * MORE PACKAGES
@@ -419,11 +417,11 @@ Make it easier to jump to files in a project.
 Your emacs version has to be 25.1 or higher if you want to use this package.
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
-  :ensure t
-  :bind ("C-c p" . projectile-keymap-prefix)
-  :config
-  (projectile-mode 1)
-  (setq projectile-completion-system 'ivy))
+	:ensure t
+	:bind ("C-c p" . projectile-keymap-prefix)
+	:config
+	(projectile-mode 1)
+	(setq projectile-completion-system 'ivy))
 #+END_SRC
 
 ** Emacs bindings for browsers
@@ -439,26 +437,26 @@ Find common writing problems and mark those.
 It does not fix the writing problems for you.
 #+BEGIN_SRC emacs-lisp
 (use-package writegood-mode
-  :ensure t
-  :bind ("C-c w" . writegood-mode))
+	:ensure t
+	:bind ("C-c w" . writegood-mode))
 #+END_SRC
 
 ** Elfeed - RSS reader
 I don't use this often so this configuration is pretty minimal.
 #+BEGIN_SRC emacs-lisp
 (use-package elfeed
-  :ensure t
-  :config
-  (setq elfeed-feeds
-        '("http://vault.lunduke.com/LundukeShowMP3.xml")))
+	:ensure t
+	:config
+	(setq elfeed-feeds
+				'("http://vault.lunduke.com/LundukeShowMP3.xml")))
 #+END_SRC
 
 ** Weather in emacs
 #+BEGIN_SRC emacs-lisp
 (use-package wttrin
-  :ensure t
-  :commands (wttrin)
-  :init (setq wttrin-default-cities '("Turnhout", "Hasselt")))
+	:ensure t
+	:commands (wttrin)
+	:init (setq wttrin-default-cities '("Turnhout", "Hasselt")))
 #+END_SRC
 
 ** IRC - ERC
@@ -469,49 +467,49 @@ TODO: add ZNC.
 #+BEGIN_SRC emacs-lisp
 (defalias 'erc 'erc-tls)
 (use-package erc
-  :defer t
-  :config
-  ;; load my sensitve nickserv passwords
-  (load-if-exists "~/.erc-secrets.el")
+	:defer t
+	:config
+	;; load my sensitve nickserv passwords
+	(load-if-exists "~/.erc-secrets.el")
 
-  (setq
-   ;; server to use if none is provided
-   erc-server "irc.serverchan.club"
-   ;; server which you can choose from in the menu
-   erc-server-history-list
-   '("irc.serverchan.club" "irc.lainchan.org" "irc.freenode.net")
-   ;; port to use if none is provided
-   erc-port 6697
-   ;; nickname to use if none is provided
-   erc-nick "rmw"
-   ;; full-name to use if none is provided 
-   ;; (my name is stored in the user-full-name variable)
-   erc-user-full-name user-full-name
-   ;; nickserv-passwords. 
-   ;; (I do this in my secret file)
-   ;; (setq erc-nickserv-passwords
-   ;;       '((freenode     (("nick-one" . "password")
-   ;;                        ("nick-two" . "password")))
-   ;;         (lainchan     (("nickname" . "password")))))
-   ;; away nickname to use
-   erc-away-nickname "rmw-away"
-   ;; erc channels to autojoin
-   erc-autojoin-channels-alist
-   '(("serverchan.club" "#scoots")
-     ("lainchan.org" "#lainchan")
-     ("freenode.net" "#librelounge"))))
+	(setq
+	 ;; server to use if none is provided
+	 erc-server "irc.serverchan.club"
+	 ;; server which you can choose from in the menu
+	 erc-server-history-list
+	 '("irc.serverchan.club" "irc.lainchan.org" "irc.freenode.net")
+	 ;; port to use if none is provided
+	 erc-port 6697
+	 ;; nickname to use if none is provided
+	 erc-nick "rmw"
+	 ;; full-name to use if none is provided 
+	 ;; (my name is stored in the user-full-name variable)
+	 erc-user-full-name user-full-name
+	 ;; nickserv-passwords. 
+	 ;; (I do this in my secret file)
+	 ;; (setq erc-nickserv-passwords
+	 ;;				'((freenode			(("nick-one" . "password")
+	 ;;												 ("nick-two" . "password")))
+	 ;;					(lainchan			(("nickname" . "password")))))
+	 ;; away nickname to use
+	 erc-away-nickname "rmw-away"
+	 ;; erc channels to autojoin
+	 erc-autojoin-channels-alist
+	 '(("serverchan.club" "#scoots")
+		 ("lainchan.org" "#lainchan")
+		 ("freenode.net" "#librelounge"))))
 
 ;; SSL support
 (require 'tls)
 (setq 
  tls-program 
  '("openssl s_client -connect %h:%p -no_ssl2 -ign_eof
-                                    -CAfile /home/ootput/.private/certs/CAs.pem
-                                    -cert /home/ootput/.private/certs/nick.pem"
-   "gnutls-cli --priority secure256 
-               --x509cafile /home/ootput/.private/certs/CAs.pem
-               --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h" 
-   "gnutls-cli --priority secure256 -p %p %h"))
+																		-CAfile /home/ootput/.private/certs/CAs.pem
+																		-cert /home/ootput/.private/certs/nick.pem"
+	 "gnutls-cli --priority secure256 
+							 --x509cafile /home/ootput/.private/certs/CAs.pem
+							 --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h" 
+	 "gnutls-cli --priority secure256 -p %p %h"))
 #+END_SRC
 
 ** EMMS
@@ -521,28 +519,28 @@ It requires an external player though.
 I personally use mplayer for video and music.
 #+BEGIN_SRC emacs-lisp
 (use-package emms
-  :ensure t
-  :defer t
-  :config
-  (require 'emms-setup)
-  (emms-standard)
-  (emms-default-players)
-  (setq emms-source-file-default-directory "~/Music/")
-  ;; Global keybindings for EMMS
-  (global-set-key (kbd "s-SPC") 'emms-pause)
-  (global-set-key (kbd "s-<left>") 'emms-previous)
-  (global-set-key (kbd "s-<right>") 'emms-next)
-  (global-set-key (kbd "s-<up>") 'emms-volume-raise)
-  (global-set-key (kbd "s-<down>") 'emms-volume-lower)
-  (global-set-key (kbd "s-s") 'emms-shuffle))
+	:ensure t
+	:defer t
+	:config
+	(require 'emms-setup)
+	(emms-standard)
+	(emms-default-players)
+	(setq emms-source-file-default-directory "~/Music/")
+	;; Global keybindings for EMMS
+	(global-set-key (kbd "s-SPC") 'emms-pause)
+	(global-set-key (kbd "s-<left>") 'emms-previous)
+	(global-set-key (kbd "s-<right>") 'emms-next)
+	(global-set-key (kbd "s-<up>") 'emms-volume-raise)
+	(global-set-key (kbd "s-<down>") 'emms-volume-lower)
+	(global-set-key (kbd "s-s") 'emms-shuffle))
 
 ;; Display track titles as scrolling text
 (use-package emms-mode-line-cycle
-  :ensure t
-  :config
-  (emms-mode-line 1)
-  (emms-playing-time 1)
-  (emms-mode-line-cycle 1))
+	:ensure t
+	:config
+	(emms-mode-line 1)
+	(emms-playing-time 1)
+	(emms-mode-line-cycle 1))
 #+END_SRC
 
 ** PDF-support
@@ -565,14 +563,14 @@ There is a way around this issue but I will use XFCE for now.
 This is why this elisp code is commented out.
 #+BEGIN_SRC emacs-lisp
 ;; (use-package exwm
-;;   :ensure t
-;;   :demand t
-;;   :hook ((exwm-init . display-battery-mode)
-;;          (exwm-init . display-time-mode)
-;;          (exwm-init . column-number-mode)
-;;          (exwm-init . line-number-mode)
-;;          (exwm-init . show-paren-mode)
-;;          (exwm-init . whitespace-mode)))
+;;	 :ensure t
+;;	 :demand t
+;;	 :hook ((exwm-init . display-battery-mode)
+;;					(exwm-init . display-time-mode)
+;;					(exwm-init . column-number-mode)
+;;					(exwm-init . line-number-mode)
+;;					(exwm-init . show-paren-mode)
+;;					(exwm-init . whitespace-mode)))
 
 ;; (use-package exwm-config :after exwm :demand t)
 ;; (exwm-config-default)
@@ -596,28 +594,28 @@ This is why this elisp code is commented out.
 ;; if input auto, same thing happens
 
 ;; (use-package exwm-randr
-;;   :after exwm
-;;   :demand t
-;;   :preface
-;;   (defun exwm-change-screen-hook (primary-screen-mode)
-;;     (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
-;;           default-output)
-;;       (with-temp-buffer
-;;         (call-process "xrandr" nil t nil)
-;;         (goto-char (point-min))
-;;         (re-search-forward xrandr-output-regexp nil 'noerror)
-;;         (setq default-output (match-string 1))
-;;         (forward-line)
-;;         (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
-;;             (call-process "xrandr" nil nil nil "--output" default-output "--auto")
-;;           (call-process
-;;            "xrandr" nil nil nil
-;;            "--output" (match-string 1) "--auto")
-;;           "--output" default-output primary-screen-mode)
-;;         (setq exwm-randr-workspace-monitor-plist (list 0 (match-string 1))))))
-;;   :hook (exwm-randr-screen-change-hook . (lambda () (exwm-change-screen-hook "--off")))
-;;   :init (lambda () (exwm-change-screen-hook "--auto"))
-;;   :config (exwm-randr-enable))
+;;	 :after exwm
+;;	 :demand t
+;;	 :preface
+;;	 (defun exwm-change-screen-hook (primary-screen-mode)
+;;		 (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
+;;					 default-output)
+;;			 (with-temp-buffer
+;;				 (call-process "xrandr" nil t nil)
+;;				 (goto-char (point-min))
+;;				 (re-search-forward xrandr-output-regexp nil 'noerror)
+;;				 (setq default-output (match-string 1))
+;;				 (forward-line)
+;;				 (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
+;;						 (call-process "xrandr" nil nil nil "--output" default-output "--auto")
+;;					 (call-process
+;;						"xrandr" nil nil nil
+;;						"--output" (match-string 1) "--auto")
+;;					 "--output" default-output primary-screen-mode)
+;;				 (setq exwm-randr-workspace-monitor-plist (list 0 (match-string 1))))))
+;;	 :hook (exwm-randr-screen-change-hook . (lambda () (exwm-change-screen-hook "--off")))
+;;	 :init (lambda () (exwm-change-screen-hook "--auto"))
+;;	 :config (exwm-randr-enable))
 
 ;; TODO bind screen function to keys
 ;; (global-set-key (kbd "M-x ") (exwm-change-screen-hook "off"))
