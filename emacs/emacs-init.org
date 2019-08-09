@@ -138,6 +138,9 @@ You can find more info about these defaults on [[https://github.com/technomancy/
 					(lambda ()
 						(dired-hide-details-mode)
 						(dired-sort-toggle-or-edit)))
+
+;; Don't ask for recursive copies, just do it.
+(setq dired-recursive-copies 'always)
 #+END_SRC
 
 ** Better keys
@@ -145,6 +148,13 @@ Minimize the use of meta.
 #+BEGIN_SRC emacs-lisp
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
+#+END_SRC
+
+** Use async processes when it is possible
+#+BEGIN_SRC emacs-lisp
+(use-package async
+	:ensure t
+	:init (dired-async-mode 1))
 #+END_SRC
 
 * LOAD OTHER SECRET FILES 
@@ -522,10 +532,12 @@ I personally use mplayer for video and music.
 	:ensure t
 	:defer t
 	:config
-	(require 'emms-setup)
-	(emms-standard)
-	(emms-default-players)
-	(setq emms-source-file-default-directory "~/Music/")
+	(require 'emms-player-simple)
+	(require 'emms-source-file)
+	(require 'emms-source-playlist)
+	(require 'emms-player-mplayer)
+    (setq emms-player-list '(emms-player-mplayer)
+		emms-source-file-default-directory "~/Music/")
 	;; Global keybindings for EMMS
 	(global-set-key (kbd "s-SPC") 'emms-pause)
 	(global-set-key (kbd "s-<left>") 'emms-previous)
@@ -533,6 +545,11 @@ I personally use mplayer for video and music.
 	(global-set-key (kbd "s-<up>") 'emms-volume-raise)
 	(global-set-key (kbd "s-<down>") 'emms-volume-lower)
 	(global-set-key (kbd "s-s") 'emms-shuffle))
+	;; TODO: Make it possible to play video files without the video
+	;;  (define-emms-simple-player mplayer '(file url) 
+	;;        (regexp-opt '(".mpg" ".mpeg" ".wmv" ".wma" ".mov" ".avi" ".asf" 
+	;;                      ".mkv" ".rm" ".rmvb" ".mp4" ".vob" ".flv" ".ogv"))
+	;;   "mplayer" "-novideo"))
 
 ;; Display track titles as scrolling text
 (use-package emms-mode-line-cycle
