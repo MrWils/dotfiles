@@ -4,7 +4,7 @@
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created: 14 Jul, 2018
-;; Version: 0.1.1
+;; Version: 0.1.2
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
