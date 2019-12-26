@@ -232,8 +232,39 @@ I want to automate the font installation in the future.
   :config
   (setq inferior-lisp-program "sbcl" slime-contribs '(slime-fancy)))
 #+END_SRC
-* SYNTAX CHECKING - empty, add spellchecking
+* SPELLING AND GRAMMAR
+** Flycheck and flyspell
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :defer 2
+  :diminish flycheck-mode " ✓"
+  :commands global-flycheck-mode
+  :config
+  (progn
+    (global-flycheck-mode 1)
+    (setq-default flycheck-disabled-checkers
+                  '(html-tidy
+                    emacs-lisp-checkdoc))))
+
+(use-package flyspell
+  :defer 2
+  :init
+  :config
+  (progn
+    (setq ispell-program-name "aspell")
+    (add-hook 'text-mode-hook 'flyspell-mode)))
+#+END_SRC
+** Trailing whitespace
+Remove trailing whitespace
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
 * ORG MODE
+** Don't use org builtin package, use repository one instead
+#+BEGIN_SRC emacs-lisp
+(assq-delete-all 'org package--builtins)
+#+END_SRC
 ** ox-hugo
 Hugo support in org-mode
 #+BEGIN_SRC emacs-lisp
