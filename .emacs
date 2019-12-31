@@ -1,10 +1,10 @@
 ;; LICENSE NOTICE
-;; Copyright (C) 2018-2019 Robin Wils
+;; Copyright (C) 2018-2020 Robin Wils
 
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
 ;; Created: 14 Jul, 2018
-;; Version: 0.1.0
+;; Version: 0.1.2
 
 ;; This config is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License

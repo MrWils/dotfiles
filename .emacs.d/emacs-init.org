@@ -1,6 +1,6 @@
 * LICENSE NOTICE AND CONFIGURATION COMMENTARY
 #+BEGIN_SRC emacs-lisp
-;; Copyright (C) 2018-2019 Robin Wils
+;; Copyright (C) 2018-2020 Robin Wils
 
 ;; Author: Robin Wils
 ;; Maintainer: Robin Wils
@@ -80,10 +80,10 @@ Require use-package.
 
  ;; No backups
  make-backup-files nil
- 
+
  ;; Disable dialogs
  use-dialog-box nil
- 
+
  ;; Disable emacs beep
  visible-bell 1
 
@@ -119,7 +119,7 @@ Require use-package.
 (toggle-scroll-bar -1)
 
 ;; Hide the menu bar (recommended)
-;; (menu-bar-mode -1) 
+;; (menu-bar-mode -1)
 #+END_SRC
 * BETTER DEFAULTS
 ** Better dired (change default config)
@@ -132,10 +132,10 @@ Require use-package.
 (setq dired-recursive-copies 'always)
 #+END_SRC
 ** Better keys - Xah Fly Keys
-I use Xah Fly Keys Dvorak. QWERTY and other layout support for this mode 
+I use Xah Fly Keys Dvorak. QWERTY and other layout support for this mode
 exists.
 #+BEGIN_SRC emacs-lisp
-(use-package xah-fly-keys 
+(use-package xah-fly-keys
   :ensure t
   :config
   (xah-fly-keys-set-layout "dvorak")
@@ -164,7 +164,7 @@ Removes all the tabs in a buffer.
   (interactive)
   (untabify (point-min) (point-max)))
 #+END_SRC
-* LOAD OTHER SECRET FILES 
+* LOAD OTHER SECRET FILES
 This file contains some (setq) variables. There is probably a better
 and more secure way to do this.
 #+BEGIN_SRC emacs-lisp
@@ -309,10 +309,10 @@ TODO: add ZNC.
    erc-port 6697
    ;; nickname to use if none is provided
    erc-nick "rmw"
-   ;; full-name to use if none is provided 
+   ;; full-name to use if none is provided
    ;; (my name is stored in the user-full-name variable)
    erc-user-full-name user-full-name
-   ;; nickserv-passwords. 
+   ;; nickserv-passwords.
    ;; (I do this in my secret file)
    ;; (setq erc-nickserv-passwords
    ;;				'((freenode			(("nick-one" . "password")
@@ -328,13 +328,13 @@ TODO: add ZNC.
 
 ;; SSL support
 (require 'tls)
-(setq 
- tls-program 
+(setq
+ tls-program
  '("openssl s_client -connect %h:%p -no_ssl2 -ign_eof
 																		-CAfile /home/ootput/.private/certs/CAs.pem
 																		-cert /home/ootput/.private/certs/nick.pem"
-   "gnutls-cli --priority secure256 
+   "gnutls-cli --priority secure256
 							 --x509cafile /home/ootput/.private/certs/CAs.pem
-							 --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h" 
+							 --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h"
    "gnutls-cli --priority secure256 -p %p %h"))
 #+END_SRC
