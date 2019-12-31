@@ -1,0 +1,8 @@
+{
+	output eDP-1 mode 1920x1080@60.052Hz position 0,0 scale 1
+	output DP-4 mode 1920x1080@60Hz position 1920,0 scale 1
+}
+
+{
+	output eDP-1 mode 1920x1080@60.052Hz position 0,0 scale 1
+}

@@ -1,0 +1,222 @@
+# CONFIG
+# modkey
+set $mod Mod4
+
+# font
+font pango:hack 9
+
+# gaps
+smart_gaps on
+gaps inner 100
+
+# Focus no follow mouse
+focus_follows_mouse no
+
+# Default workspace layout, sway does tiling by default
+workspace_layout tabbed
+
+# Set terminal emulator
+set $term kitty
+
+# Set menu, bemenu is dmenu for wayland
+set $menu bemenu-run -b --tf='#00ff70' --nf='#999999' --hf='#000000' --hb='#00ff70' --fn='pango:hack 12' -p ''
+
+# Window colors
+client.focused_inactive #0d1010 #0d1010 #AAAAAA #0d1010 #0d1010
+client.unfocused #0d1010 #0d1010 #888888 #0d1010 #0d1010
+client.focused #0d1010 #000000 #DDDDDD #0d1010 #0d1010
+
+# Set workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws3 "4"
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Force floating on some windows
+for_window [title="Android Emulator - Pixel_API_29:5554"] floating enable
+
+
+# KEYBOARD
+# I use Dvorak
+# The last line makes Caps Lock do Ctrl
+input * {
+    repeat_delay 250
+		repeat_rate 40
+    xkb_layout us
+    xkb_variant dvorak
+    xkb_options ctrl:nocaps
+}
+
+# Make the Shift keys do shift lock instead of shift
+exec xmodmap -e "keycode 50 = Shift_Lock"
+exec xmodmap -e "keycode 62 = Shift_Lock"
+
+
+# DISPLAY SETTINGS
+# Set wallpaper
+output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
+
+# Only turn laptop screen on when lid not closed
+set $laptopScreen eDP-1
+bindswitch --reload lid:on output $laptopScreen disable
+bindswitch --reload lid:off output $laptopScreen enable
+
+
+# RUN ON STARTUP
+exec kanshi # Automatically set display configuration
+exec lxqt-policykit-agent # policykit-agent
+exec emacs --daemon # Emacs daemon
+exec mpd /home/rmw/.config/mpd/mpd.conf # Music Player Daemon
+
+# Start keepassxc on workspace 1
+exec swaymsg 'workspace 1; exec keepassxc'
+
+# I no longer use a tray
+# exec stalonetray --parent-bg true --sticky --icon-size=16 --window-layer top
+
+
+# KEYBINDINGS
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Kill focused window
+bindsym $mod+q kill
+# Reload the configuration file
+bindsym $mod+c reload
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Escape exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# Screenshot key
+bindsym Print exec grim -g "$(slurp)" /home/rmw/screen.png | wl-copy
+# Lock Sway key
+bindsym $mod+l exec swaylock -c 00000000 --font Hack
+
+# MPD mode
+mode "mpd-mode" {
+    bindsym space exec mpc toggle
+    # change focus
+    bindsym o exec mpc prev
+    bindsym e exec mpc volume -5
+    bindsym period exec mpc volume +5
+    bindsym u exec mpc next
+
+
+    bindsym s exec mpc shuffle
+    bindsym l exec mpc repeat
+    bindsym r exec mpc random
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "mpd-mode"
+
+# Window focus mode
+mode "window-focus" {
+    # change focus
+    bindsym o focus left
+    bindsym e focus down
+    bindsym period focus up
+    bindsym u focus right
+
+    # move focused window
+    bindsym h move left
+    bindsym t move down
+    bindsym c move up
+    bindsym n move right
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+w mode "window-focus"
+
+# Move to workspace mode
+mode "move-to-workspace" {
+    # move focused container to workspace
+    bindsym 1 move container to workspace number $ws1
+    bindsym 2 move container to workspace number $ws2
+    bindsym 3 move container to workspace number $ws3
+    bindsym 4 move container to workspace number $ws4
+
+    # move workspace
+    bindsym o move workspace to output left
+    bindsym e move workspace to output down
+    bindsym period move workspace to output up
+    bindsym u move workspace to output right
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+m mode "move-to-workspace"
+
+# Resize mode
+mode "resize" {
+    # resize windows
+    bindsym o resize shrink width 10 px or 10 ppt
+    bindsym e resize grow height 10 px or 10 ppt
+    bindsym period resize shrink height 10 px or 10 ppt
+    bindsym u resize grow width 10 px or 10 ppt
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Launch applications mode
+mode "launch-applications" {
+    # start bemenu (a program launcher)
+    bindsym $mod+d exec $menu, mode "default"
+
+    # jumpapp
+    bindsym t exec jumpapp $term
+    bindsym a exec jumpapp android-studio
+    bindsym b exec jumpapp abrowser
+    bindsym c exec jumpapp codium
+    bindsym r exec jumpapp ripcord
+    # bindsym d exec jumpapp arandr
+    bindsym k exec jumpapp keepassxc
+    bindsym w exec jumpapp wicd-client
+    bindsym e exec jumpapp emacs
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+d mode "launch-applications"
+
+bar {
+		swaybar_command waybar
+}

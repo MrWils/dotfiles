@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# aliases
+alias s='sudo'
+
+# Formatted directory listings
+alias ll='ls -lF --color=auto'
+alias la="ls -alF --color=auto"
+alias lt='ls --human-readable --size -1 -S --classify --color=auto'
+alias ls='ls -F --color=auto'
+
+# Highlight grep matches
+alias grep='grep --color=auto'
+
+# Automatically create subdirectories with mkdir
+alias mkdir="mkdir -pv"
+
+# Command shortcuts
+alias du="du -ach | sort -h"
+alias top="sudo htop"
+alias diff='colordiff'
+alias ports='netstat -tulanp'
+alias pac="sudo powerpill"
+alias emacs="emacsclient -a '' -c"
+alias poweroff="sudo poweroff"
+alias suspend="sudo systemctl suspend"
+alias sysd="sudo systemctl"
+
+# Directory shortcuts
+alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"
+alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"
