@@ -1,0 +1,13 @@
+.zsh_aliases .zshenv .zshrc
+.zprofile
+.config/sway
+.config/mpd/mpd.conf
+.config/kitty/kitty.conf
+.config/gtk-3.0/settings.ini
+.config/kanshi/config
+.emacs
+.emacs.d/emacs-init.org
+.config/pulse/daemon.conf
+.asoundrc
+.config/waybar
+dotfiles_to_track
