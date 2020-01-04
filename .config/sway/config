@@ -5,10 +5,6 @@ set $mod Mod4
 # font
 font pango:hack 9
 
-# gaps
-smart_gaps on
-gaps inner 100
-
 # Focus no follow mouse
 focus_follows_mouse no
 
@@ -22,9 +18,9 @@ set $term kitty
 set $menu bemenu-run -b --tf='#00ff70' --nf='#999999' --hf='#000000' --hb='#00ff70' --fn='pango:hack 12' -p ''
 
 # Window colors
-client.focused_inactive #0d1010 #0d1010 #AAAAAA #0d1010 #0d1010
-client.unfocused #0d1010 #0d1010 #888888 #0d1010 #0d1010
-client.focused #0d1010 #000000 #DDDDDD #0d1010 #0d1010
+# client.focused_inactive #0d1010 #0d1010 #AAAAAA #0d1010 #0d1010
+# client.unfocused #0d1010 #0d1010 #888888 #0d1010 #0d1010
+client.focused #0d1010 #111111 #DDDDDD #0d1010 #0d1010
 
 # Set workspaces
 set $ws1 "1"
@@ -36,6 +32,7 @@ set $ws3 "4"
 floating_modifier $mod
 
 # Force floating on some windows
+for_window [title="win0"] floating enable;
 for_window [title="Android Emulator - Pixel_API_29:5554"] floating enable
 
 
@@ -51,8 +48,10 @@ input * {
 }
 
 # Make the Shift keys do shift lock instead of shift
-exec xmodmap -e "keycode 50 = Shift_Lock"
-exec xmodmap -e "keycode 62 = Shift_Lock"
+
+# Does not work the way I want it it to
+# exec xmodmap -e "keycode 50 = Shift_Lock"
+# exec xmodmap -e "keycode 62 = Shift_Lock"
 
 
 # DISPLAY SETTINGS
@@ -115,6 +114,8 @@ bindsym $mod+space focus mode_toggle
 bindsym Print exec grim -g "$(slurp)" /home/rmw/screen.png | wl-copy
 # Lock Sway key
 bindsym $mod+l exec swaylock -c 00000000 --font Hack
+# Toggle floating
+bindsym $mod+x floating toggle
 
 # MPD mode
 mode "mpd-mode" {
