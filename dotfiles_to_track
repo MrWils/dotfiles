@@ -11,3 +11,5 @@
 .asoundrc
 .config/waybar
 dotfiles_to_track
+.gitignore
+.config/git
