@@ -38,20 +38,15 @@ for_window [title="Android Emulator - Pixel_API_29:5554"] floating enable
 
 # KEYBOARD
 # I use Dvorak
-# The last line makes Caps Lock do Ctrl
+# The last line makes Caps Lock do Ctrl and
+# makes the shift keys do shift lock instead of shift
 input * {
     repeat_delay 250
 		repeat_rate 40
     xkb_layout us
     xkb_variant dvorak
-    xkb_options ctrl:nocaps
+    xkb_options ctrl:nocaps,shift:lshift_both_shiftlock
 }
-
-# Make the Shift keys do shift lock instead of shift
-
-# Does not work the way I want it it to
-# exec xmodmap -e "keycode 50 = Shift_Lock"
-# exec xmodmap -e "keycode 62 = Shift_Lock"
 
 
 # DISPLAY SETTINGS
@@ -67,14 +62,9 @@ bindswitch --reload lid:off output $laptopScreen enable
 # RUN ON STARTUP
 exec kanshi # Automatically set display configuration
 exec lxqt-policykit-agent # policykit-agent
-exec emacs --daemon # Emacs daemon
-exec mpd /home/rmw/.config/mpd/mpd.conf # Music Player Daemon
 
 # Start keepassxc on workspace 1
 exec swaymsg 'workspace 1; exec keepassxc'
-
-# I no longer use a tray
-# exec stalonetray --parent-bg true --sticky --icon-size=16 --window-layer top
 
 
 # KEYBINDINGS
@@ -205,8 +195,7 @@ mode "launch-applications" {
     bindsym a exec jumpapp android-studio
     bindsym b exec jumpapp abrowser
     bindsym c exec jumpapp codium
-    bindsym r exec jumpapp ripcord
-    # bindsym d exec jumpapp arandr
+    bindsym p exec jumpapp wdisplays
     bindsym k exec jumpapp keepassxc
     bindsym w exec jumpapp wicd-client
     bindsym e exec jumpapp emacs

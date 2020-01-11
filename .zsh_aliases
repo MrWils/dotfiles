@@ -21,11 +21,12 @@ alias top="sudo htop"
 alias diff='colordiff'
 alias ports='netstat -tulanp'
 alias pac="sudo powerpill"
-alias emacs="emacsclient -a '' -c"
+alias emacs="emacsclient -cna ''"
 alias poweroff="sudo poweroff"
 alias suspend="sudo systemctl suspend"
 alias sysd="sudo systemctl"
 
 # Directory shortcuts
 alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"
+alias swayconf="emacs /home/rmw/.config/sway/config"
 alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"
