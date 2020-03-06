@@ -50,7 +50,7 @@ Thumbs.db
 
 ## Javascript
 **/node_modules
-package-lock.json
+**/package-lock.json
 
 # Jetbrains IDEs
 **/.idea

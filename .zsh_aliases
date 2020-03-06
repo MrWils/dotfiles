@@ -2,6 +2,7 @@
 
 # aliases
 alias s='sudo'
+alias mount='sudo mount'
 
 # Formatted directory listings
 alias ll='ls -lF --color=auto'
@@ -13,7 +14,7 @@ alias ls='ls -F --color=auto'
 alias grep='grep --color=auto'
 
 # Automatically create subdirectories with mkdir
-alias mkdir="mkdir -pv"
+alias mkdir="sudo mkdir -pv"
 
 # Command shortcuts
 alias du="du -ach | sort -h"

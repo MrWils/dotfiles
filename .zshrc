@@ -51,6 +51,9 @@ compinit
 # No longer need cd to switch dirs
 setopt autocd
 
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

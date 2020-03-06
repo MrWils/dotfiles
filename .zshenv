@@ -3,7 +3,10 @@
 # Enviroment variables
 # Add  npm to PATH
 PATH=$PATH:~/.npm-global/bin
+PATH=$PATH:~/go/bin/
 export PATH
+
+export GOPATH=$HOME/go
 
 # Use dark gtk theme
 export GTK_THEME=Adwaita:dark
@@ -21,3 +24,5 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export MOZ_ENABLE_WAYLAND=1
 # Kitty terminal wayland support
 export KITTY_ENABLE_WAYLAND=1
+# Node stuff
+export NODE_OPTIONS="--max_old_space_size=6144"
