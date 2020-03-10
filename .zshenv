@@ -16,6 +16,8 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_QPA_PLATFORM=wayland
 export QT_WAYLAND_FORCE_DPI=96
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+# Make sure that bemenu uses wayland
+export BEMENU_BACKEND=wayland
 # Make java apps display correctly in sway
 export _JAVA_AWT_WM_NONREPARENTING=1
 # Make sure that gdk (firefox) uses wayland

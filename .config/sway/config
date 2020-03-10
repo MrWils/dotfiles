@@ -78,11 +78,13 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# Use brightness keys to change the brightness with brightnessctl
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# Bind audio keys to mpc
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
 
 # Kill focused window
 bindsym $mod+q kill
@@ -109,7 +111,6 @@ bindsym $mod+x floating toggle
 # MPD mode
 mode "mpd-mode" {
     bindsym space exec mpc toggle
-    # change focus
     bindsym o exec mpc prev
     bindsym e exec mpc volume -5
     bindsym period exec mpc volume +5
