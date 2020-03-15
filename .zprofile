@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Automount this partition
-PARTITION_LABEL="frzr_root"
-
 # This file should be sourced by all POSIX sh-compatible shells upon login
 source /etc/profile
 
@@ -12,31 +9,51 @@ source /etc/profile
 # Start mpd if it is not started yet
 pgrep mpd || exec mpd /home/rmw/.config/mpd/mpd.conf &
 
-# Check if our partition exists
-partitionExists=`lsblk -o label | grep $PARTITION_LABEL`
-if [ -z "$partitionExists" ]
-then
-    echo "Couldn't find a partition with the label $PARTITION_LABEL"
-    exit 1
-fi
+# Make sure that all ssh-agents are killed
+killall ssh-agent
 
-# Unmount our partition, if it is mounted
-mount_location=$(mount | grep $PARTITION_LABEL | cut -d ' ' -f1)
-umount mount_location &> /dev/null
-unset mount_location &> /dev/null
+# Show possible sessions with a timeout
+time=5
+clear
+started_session=false
 
-# mount our partition
-mkdir /run/media/rmw/frzr_root
-sudo mount -L $PARTITION_LABEL /run/media/rmw/frzr_root &> /dev/null
+echo "Choose a session:"
+echo "1) Wayland, Sway session"
+echo "2) Xorg session"
+echo "3) None"
+echo "\nThe first option will be started automatically if you do not select anything."
+while [ $time -gt 0 ]; do
+    read -u 0 -k 1 -t 1
+    sleep 1
+    : $((time--))
 
-# If running from tty1 start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
-    # Make sure that all ssh-agents are killed
-    killall ssh-agent
+    case $REPLY in
+        1)
+            started_session=true
+            # Start Wayland, Sway session with SSH-key support
+            eval `ssh-agent`
+            exec sway &> swaylog
+            break
+            ;;
+        2)
+            started_session=true
+            # Start Xorg
+            exec startx
+            break
+            ;;
+        3)
+            started_session=true
+            break
+            ;;
+        *)
+            if [ ! $REPLY = "" ]; then
+                echo "\nInvalid option\n"
+            fi
+    esac
+done
 
+if [ ! $started_session ]; then
     # Start Sway with SSH-key support
     eval `ssh-agent`
     exec sway &> swaylog
-    # export QT_QPA_PLATFORM=''
-    # exec startxfce4
 fi

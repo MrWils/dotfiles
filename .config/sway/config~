@@ -49,8 +49,8 @@ input * {
 
 
 # DISPLAY SETTINGS
-# Set wallpaper
-output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
+# Set wallpaper (I no longer use a wallpaper)
+# output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
 
 # Only turn laptop screen on when lid not closed
 set $laptopScreen eDP-1
@@ -193,8 +193,10 @@ mode "launch-applications" {
     # jumpapp
     bindsym t exec jumpapp $term
     bindsym b exec jumpapp brave
+    bindsym c exec jumpapp code
     bindsym p exec jumpapp wdisplays
     bindsym k exec jumpapp keepassxc
+    bindsym w exec jumpapp wicd-client
     bindsym e exec jumpapp emacs
 
     # back to normal mode
