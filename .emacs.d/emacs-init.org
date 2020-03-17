@@ -138,6 +138,9 @@ exists.
 (use-package xah-fly-keys
   :ensure t
   :config
+  (setq xah-fly-use-control-key nil)
+  (setq xah-fly-use-meta-key nil)
+  (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
   (xah-fly-keys-set-layout "dvorak")
   (xah-fly-keys 1))
 #+END_SRC
