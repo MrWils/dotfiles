@@ -26,6 +26,7 @@ alias emacs="emacsclient -cna ''"
 alias poweroff="sudo poweroff"
 alias suspend="sudo systemctl suspend"
 alias sysd="sudo systemctl"
+alias unzipKeepDirName='for i in *.zip; do sudo unzip "$i" -d "${i%%.zip}"; done'
 
 # Directory shortcuts
 alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"

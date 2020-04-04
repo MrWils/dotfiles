@@ -14,7 +14,7 @@
 
 ;; This config is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
@@ -104,8 +104,7 @@ Require use-package.
 
  ;; Don't use tabs
  ;; use spaces instead
- ;; indent-tabs-mode nil
- )
+ indent-tabs-mode nil)
 #+END_SRC
 * HIDE GUI ELEMENTS
 #+BEGIN_SRC emacs-lisp
@@ -130,6 +129,15 @@ Require use-package.
             (dired-sort-toggle-or-edit)))
 ;; Don't ask for recursive copies, just do it.
 (setq dired-recursive-copies 'always)
+;; Same thing for recursive deleting.
+(setq dired-recursive-deletes 'always)
+;; Make it possible to copy from one buffer to another.
+(setq dired-dwim-target t)
+;; Don't let Enter and ^ create a new buffer
+
+;; Did not work
+;;(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+;;(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
 #+END_SRC
 ** Better keys - Xah Fly Keys
 I use Xah Fly Keys Dvorak. QWERTY and other layout support for this mode
@@ -142,7 +150,24 @@ exists.
   (setq xah-fly-use-meta-key nil)
   (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
   (xah-fly-keys-set-layout "dvorak")
-  (xah-fly-keys 1))
+  (xah-fly-keys 1)
+
+  (defun xah-replace-invisible-char ()
+    "Query replace some invisible Unicode chars.
+  The chars to be searched are:
+   ZERO WIDTH NO-BREAK SPACE (65279, #xfeff)
+   ZERO WIDTH SPACE (codepoint 8203, #x200b)
+   RIGHT-TO-LEFT MARK (8207, #x200f)
+   RIGHT-TO-LEFT OVERRIDE (8238, #x202e)
+   LEFT-TO-RIGHT MARK ‎(8206, #x200e)
+   OBJECT REPLACEMENT CHARACTER (65532, #xfffc)
+
+  Search begins at cursor position. (respects `narrow-to-region')
+
+  URL `http://ergoemacs.org/emacs/elisp_unicode_replace_invisible_chars.html'
+  Version 2018-09-07"
+    (interactive)
+    (query-replace-regexp "\ufeff\\|\u200b\\|\u200f\\|\u202e\\|\u200e\\|\ufffc" "")))
 #+END_SRC
 ** Better modes
 Xah Lee has some great modes which are better as the defaults.
@@ -157,6 +182,15 @@ Xah Lee has some great modes which are better as the defaults.
 ** Use async processes when it is possible
 #+BEGIN_SRC emacs-lisp
 (use-package async :ensure t :init (dired-async-mode 1))
+#+END_SRC
+** Show line numbers
+#+BEGIN_SRC emacs-lisp
+(global-linum-mode 1)
+;; Start line numbers at 0
+(require 'linum)
+(setq linum-format
+      (lambda (line)
+        (propertize (number-to-string (1- line)) 'face 'linum)))
 #+END_SRC
 * OWN HOOK FUNCTIONS
 ** Untabify whole buffer
@@ -234,6 +268,13 @@ I want to automate the font installation in the future.
   :commands (slime slime-lisp-mode-hook)
   :config
   (setq inferior-lisp-program "sbcl" slime-contribs '(slime-fancy)))
+#+END_SRC
+** Godot
+#+BEGIN_SRC emacs-lisp
+(use-package gdscript-mode
+   :ensure t
+   :config
+   (setq gdscript-tabs-mode nil))
 #+END_SRC
 * SPELLING AND GRAMMAR
 ** Flycheck and flyspell
@@ -318,9 +359,9 @@ TODO: add ZNC.
    ;; nickserv-passwords.
    ;; (I do this in my secret file)
    ;; (setq erc-nickserv-passwords
-   ;;				'((freenode			(("nick-one" . "password")
-   ;;												 ("nick-two" . "password")))
-   ;;					(lainchan			(("nickname" . "password")))))
+   ;;       '((freenode     (("nick-one" . "password")
+   ;;                        ("nick-two" . "password")))
+   ;;         (lainchan     (("nickname" . "password")))))
    ;; away nickname to use
    erc-away-nickname "rmw-away"
    ;; erc channels to autojoin
@@ -334,10 +375,10 @@ TODO: add ZNC.
 (setq
  tls-program
  '("openssl s_client -connect %h:%p -no_ssl2 -ign_eof
-																		-CAfile /home/ootput/.private/certs/CAs.pem
-																		-cert /home/ootput/.private/certs/nick.pem"
+                                    -CAfile /home/ootput/.private/certs/CAs.pem
+                                    -cert /home/ootput/.private/certs/nick.pem"
    "gnutls-cli --priority secure256
-							 --x509cafile /home/ootput/.private/certs/CAs.pem
-							 --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h"
+               --x509cafile /home/ootput/.private/certs/CAs.pem
+               --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h"
    "gnutls-cli --priority secure256 -p %p %h"))
 #+END_SRC

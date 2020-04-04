@@ -38,17 +38,3 @@
 (org-babel-load-file
  (expand-file-name "emacs-init.org"
                    user-emacs-directory))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-	 (quote
-		(lua-mode org-mode markdown-mode xah-fly-keys ox-hugo org yasnippet-snippets wttrin writegood-mode web-mode use-package slime-company projectile org-pdfview magit ido-hacks hungry-delete htmlize flycheck emms-mode-line-cycle elfeed diminish darktooth-theme counsel better-shell better-defaults auto-package-update aggressive-indent))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

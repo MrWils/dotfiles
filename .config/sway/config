@@ -14,8 +14,8 @@ workspace_layout tabbed
 # Set terminal emulator
 set $term kitty
 
-# Set menu, bemenu is dmenu for wayland
-set $menu bemenu-run -b --tf='#00ff70' --nf='#999999' --hf='#000000' --hb='#00ff70' --fn='pango:hack 12' -p ''
+# Set menu with wofi
+set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
 
 # Window colors
 # client.focused_inactive #0d1010 #0d1010 #AAAAAA #0d1010 #0d1010
@@ -38,22 +38,32 @@ for_window [title="win0"] floating enable
 # KEYBOARD
 # I use Dvorak
 # The last line makes Caps Lock do Ctrl and
-# makes the shift keys do shift lock instead of shift
-input * {
+# TODO: makes the shift keys do shift lock instead of shift
+input type:keyboard {
     repeat_delay 250
-		repeat_rate 40
+    repeat_rate 40
     xkb_layout us
     xkb_variant dvorak
+    xkb_options ctrl:nocaps,shift:lshift_both_shiftlock
+}
+
+# Ergodox
+input 65261:4871:ErgoDox_EZ_ErgoDox_EZ {
+    repeat_delay 250
+    repeat_rate 40
+    xkb_layout us
+    xkb_variant ,
     xkb_options ctrl:nocaps,shift:lshift_both_shiftlock
 }
 
 
 # DISPLAY SETTINGS
 # Set wallpaper
-output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
+# output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
 
 # Only turn laptop screen on when lid not closed
-set $laptopScreen eDP-1
+# set $laptopScreen eDP-1
+set $laptopScreen eDP-2
 bindswitch --reload lid:on output $laptopScreen disable
 bindswitch --reload lid:off output $laptopScreen enable
 
@@ -193,7 +203,7 @@ mode "launch-applications" {
     # jumpapp
     bindsym t exec jumpapp $term
     bindsym b exec jumpapp brave
-    bindsym p exec jumpapp wdisplays
+    bindsym d exec jumpapp wdisplays
     bindsym k exec jumpapp keepassxc
     bindsym e exec jumpapp emacs
 
@@ -205,5 +215,5 @@ mode "launch-applications" {
 bindsym $mod+d mode "launch-applications"
 
 bar {
-		swaybar_command waybar
+    swaybar_command waybar
 }
