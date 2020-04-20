@@ -13,7 +13,7 @@ export GTK_THEME=Adwaita:dark
 # Enable QT apps to have gtk theme
 export QT_QPA_PLATFORMTHEME=qt5ct
 # Force wayland on qt apps
-export QT_QPA_PLATFORM=wayland
+# export QT_QPA_PLATFORM=wayland
 export QT_WAYLAND_FORCE_DPI=96
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 # Make sure that bemenu uses wayland
@@ -28,3 +28,6 @@ export MOZ_ENABLE_WAYLAND=1
 export KITTY_ENABLE_WAYLAND=1
 # Node stuff
 export NODE_OPTIONS="--max_old_space_size=6144"
+# Use optirun with gamemode
+export GAMEMODERUNEXEC="optirun"
+export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"

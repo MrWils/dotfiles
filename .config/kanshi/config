@@ -1,13 +1,13 @@
 {
-	output eDP-1 mode 1920x1080@60.052Hz position 0,0 scale 1
+	output "Unknown 0x38ED 0x00000000" mode 1920x1080@60.052Hz position 0,0 scale 1
 	output "Unknown BenQ GL2460 58D09133SL0" mode 1920x1080@60Hz position 1920,0 scale 1
 }
 
 {
 	output "Unknown AAA 0x00000000" mode 1920x1080@60Hz position 0,0 scale 1
-	output eDP-1 mode 1920x1080@60.052Hz position 1920,0 scale 1
+	output "Unknown 0x38ED 0x00000000" mode 1920x1080@60.052Hz position 1920,0 scale 1
 }
 
 {
-	output eDP-1 mode 1920x1080@60.052Hz position 0,0 scale 1
+	output "Unknown 0x38ED 0x00000000" mode 1920x1080@60.052Hz position 0,0 scale 1
 }
