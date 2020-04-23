@@ -17,6 +17,7 @@ alias grep='grep --color=auto'
 alias mkdir="sudo mkdir -pv"
 
 # Command shortcuts
+alias st="st -f 'Hack-8' -t st zsh"
 alias du="du -ach | sort -h"
 alias top="sudo htop"
 alias diff='colordiff'
@@ -31,4 +32,5 @@ alias unzipKeepDirName='for i in *.zip; do sudo unzip "$i" -d "${i%%.zip}"; done
 # Directory shortcuts
 alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"
 alias swayconf="emacs /home/rmw/.config/sway/config"
+alias i3conf="emacs /home/rmw/.config/i3/config"
 alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"

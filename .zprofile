@@ -6,5 +6,6 @@ killall ssh-agent
 
 # Start Wayland, Sway session with SSH-key support
 eval `ssh-agent`
-# exec sway &> swaylog
-[ "$(tty)" = /dev/tty1 ] && startx # exec sway
+
+# Start display server
+[ "$(tty)" = /dev/tty1 ] && startx # exec sway &> swaylog

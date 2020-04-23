@@ -1,17 +1,14 @@
-#!/bin/bash
-
 # Enviroment variables
 # Add  npm to PATH
 PATH=$PATH:~/.npm-global/bin
 PATH=$PATH:~/go/bin/
 export PATH
-
-export GOPATH=$HOME/go
-
+# Go lang
+export GOPATH=$HOME/.go
 # Use dark gtk theme
 export GTK_THEME=Adwaita:dark
 # Enable QT apps to have gtk theme
-export QT_QPA_PLATFORMTHEME=qt5ct
+# export QT_QPA_PLATFORMTHEME=qt5ct
 # Force wayland on qt apps
 # export QT_QPA_PLATFORM=wayland
 export QT_WAYLAND_FORCE_DPI=96
@@ -23,11 +20,12 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Make sure that gdk (firefox) uses wayland
 # export GDK_BACKEND=wayland <-- breaks applications and is not needed,
 # because GTK auto detects the best backend
-export MOZ_ENABLE_WAYLAND=1
+# export MOZ_ENABLE_WAYLAND=1
 # Kitty terminal wayland support
 export KITTY_ENABLE_WAYLAND=1
 # Node stuff
 export NODE_OPTIONS="--max_old_space_size=6144"
 # Use optirun with gamemode
-export GAMEMODERUNEXEC="optirun"
-export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"
+# export GAMEMODERUNEXEC="optirun"
+# TLP and bumblebee can cause issues, set this environment variable
+# export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"

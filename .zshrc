@@ -1,4 +1,3 @@
-#!/bin/bash
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -30,8 +29,10 @@ fi
 # Enable colors
 autoload -U colors && colors
 
-# Print cat image
-kitty +kitten icat --silent --align left Pictures/kittyLogo.png
+# KITTY
+# Print image
+# kitty +kitten icat --silent --align left Pictures/kittyLogo.png
+# kitty + complete setup zsh | source /dev/stdin
 
 # Make it possible to use commands in prompts
 setopt prompt_subst
@@ -50,9 +51,6 @@ compinit
 
 # No longer need cd to switch dirs
 setopt autocd
-
-# Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

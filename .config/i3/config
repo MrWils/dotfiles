@@ -1,0 +1,203 @@
+# CONFIG
+# modkey
+set $mod Mod4
+
+# font
+font pango:hack 9
+
+# Focus no follow mouse
+focus_follows_mouse no
+
+# Default workspace layout, sway does tiling by default
+workspace_layout tabbed
+
+# Set terminal emulator
+set $term st -f 'Hack-8' -t st zsh
+
+# Set menu with dmenu
+set $menu dmenu_run -fn 'Hack-10' -nb \#000
+
+# Window colors
+# client.focused_inactive #0d1010 #0d1010 #AAAAAA #0d1010 #0d1010
+# client.unfocused #0d1010 #0d1010 #888888 #0d1010 #0d1010
+client.focused #0d1010 #111111 #DDDDDD #0d1010 #0d1010
+
+# Set workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws3 "4"
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Force floating on some windows
+for_window [title="win0"] floating enable
+for_window [instance="Godot_Editor"] floating disable
+for_window [instance="Godot_Engine"] floating enable
+# TODO keyboard
+exec --no-startup-id xmodmap /home/rmw/.Xmodmap
+
+# DISPLAY SETTINGS
+# Set wallpaper
+# output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
+
+# Sway only
+# Only turn laptop screen on when lid not closed
+# set $laptopScreen eDP-1
+# set $laptopScreen eDP-2
+# bindswitch --reload lid:on output $laptopScreen disable
+# bindswitch --reload lid:off output $laptopScreen enable
+
+
+# RUN ON STARTUP
+#exec kanshi # Automatically set display configuration
+exec lxqt-policykit-agent # policykit-agent
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+exec $term
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# Use brightness keys to change the brightness with brightnessctl
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+# Bind audio keys to mpc
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
+
+# Kill focused window
+bindsym $mod+q kill
+# Reload the configuration file
+bindsym $mod+c reload
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+greater exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# Screenshot key
+bindsym Print exec maim -s /home/rmw/screen.png
+# Lock Sway key
+bindsym $mod+l exec i3lock -c 00000000 --font Hack
+# Toggle floating
+bindsym $mod+x floating toggle
+
+# MPD mode
+mode "mpd-mode" {
+    bindsym space exec mpc toggle
+    bindsym o exec mpc prev
+    bindsym e exec mpc volume -5
+    bindsym period exec mpc volume +5
+    bindsym u exec mpc next
+
+
+    bindsym s exec mpc shuffle
+    bindsym l exec mpc repeat
+    bindsym r exec mpc random
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "mpd-mode"
+
+# Window focus mode
+mode "window-focus" {
+    # change focus
+    bindsym o focus left
+    bindsym e focus down
+    bindsym period focus up
+    bindsym u focus right
+
+    # move focused window
+    bindsym h move left
+    bindsym t move down
+    bindsym c move up
+    bindsym n move right
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+w mode "window-focus"
+
+# Move to workspace mode
+mode "move-to-workspace" {
+    # move focused container to workspace
+    bindsym 1 move container to workspace number $ws1
+    bindsym 2 move container to workspace number $ws2
+    bindsym 3 move container to workspace number $ws3
+    bindsym 4 move container to workspace number $ws4
+
+    # move workspace
+    bindsym o move workspace to output left
+    bindsym e move workspace to output down
+    bindsym period move workspace to output up
+    bindsym u move workspace to output right
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+m mode "move-to-workspace"
+
+# Resize mode
+mode "resize" {
+    # resize windows
+    bindsym o resize shrink width 10 px or 10 ppt
+    bindsym e resize grow height 10 px or 10 ppt
+    bindsym period resize shrink height 10 px or 10 ppt
+    bindsym u resize grow width 10 px or 10 ppt
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Launch applications mode
+mode "launch-applications" {
+    # start bemenu (a program launcher)
+    bindsym $mod+d exec --no-startup-id $menu
+    # jumpapp
+    bindsym t exec jumpapp $term
+    bindsym b exec jumpapp brave
+    bindsym d exec jumpapp arandr
+    bindsym k exec jumpapp keepassxc
+    bindsym e exec jumpapp emacs
+
+    # back to normal mode
+    bindsym $mod+q mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+d mode "launch-applications"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    status_command i3status
+    tray_output primary
+    position top
+}
