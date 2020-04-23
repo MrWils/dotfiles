@@ -3,6 +3,7 @@
 # aliases
 alias s='sudo'
 alias mount='sudo mount'
+alias umount='sudo umount'
 
 # Formatted directory listings
 alias ll='ls -lF --color=auto'
