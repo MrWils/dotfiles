@@ -12,7 +12,7 @@ focus_follows_mouse no
 workspace_layout tabbed
 
 # Set terminal emulator
-set $term st -f 'Hack-8' -t st zsh
+set $term st
 
 # Set menu with dmenu
 set $menu dmenu_run -fn 'Hack-10' -nb \#000
