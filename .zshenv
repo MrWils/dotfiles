@@ -11,10 +11,10 @@ export GTK_THEME=Adwaita:dark
 # export QT_QPA_PLATFORMTHEME=qt5ct
 # Force wayland on qt apps
 # export QT_QPA_PLATFORM=wayland
-export QT_WAYLAND_FORCE_DPI=96
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+# export QT_WAYLAND_FORCE_DPI=96
+# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 # Make sure that bemenu uses wayland
-export BEMENU_BACKEND=wayland
+# export BEMENU_BACKEND=wayland
 # Make java apps display correctly in sway
 export _JAVA_AWT_WM_NONREPARENTING=1
 # Make sure that gdk (firefox) uses wayland
@@ -22,10 +22,10 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # because GTK auto detects the best backend
 # export MOZ_ENABLE_WAYLAND=1
 # Kitty terminal wayland support
-export KITTY_ENABLE_WAYLAND=1
+# export KITTY_ENABLE_WAYLAND=1
 # Node stuff
 export NODE_OPTIONS="--max_old_space_size=6144"
-# Use optirun with gamemode
+# Use optirun with gamemode, just use lutris
 # export GAMEMODERUNEXEC="optirun"
 # TLP and bumblebee can cause issues, set this environment variable
-# export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"
+export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"

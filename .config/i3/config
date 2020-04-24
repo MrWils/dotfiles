@@ -37,7 +37,6 @@ for_window [instance="Godot_Editor"] floating disable
 for_window [instance="Godot_Engine"] floating enable
 # TODO keyboard
 exec --no-startup-id xmodmap /home/rmw/.Xmodmap
-
 # DISPLAY SETTINGS
 # Set wallpaper
 # output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
@@ -51,16 +50,14 @@ exec --no-startup-id xmodmap /home/rmw/.Xmodmap
 
 
 # RUN ON STARTUP
-#exec kanshi # Automatically set display configuration
+# Automatically set display configuration
+exec autorandr --change
 exec lxqt-policykit-agent # policykit-agent
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
 
 exec $term
 
@@ -182,7 +179,7 @@ mode "launch-applications" {
     bindsym $mod+d exec --no-startup-id $menu
     # jumpapp
     bindsym t exec jumpapp $term
-    bindsym b exec jumpapp brave
+    bindsym b exec jumpapp abrowser
     bindsym d exec jumpapp arandr
     bindsym k exec jumpapp keepassxc
     bindsym e exec jumpapp emacs
@@ -200,4 +197,6 @@ bar {
     status_command i3status
     tray_output primary
     position top
+    workspace_buttons no
+    separator_symbol " "
 }
