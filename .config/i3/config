@@ -35,8 +35,7 @@ floating_modifier $mod
 for_window [title="win0"] floating enable
 for_window [instance="Godot_Editor"] floating disable
 for_window [instance="Godot_Engine"] floating enable
-# TODO keyboard
-exec --no-startup-id xmodmap /home/rmw/.Xmodmap
+
 # DISPLAY SETTINGS
 # Set wallpaper
 # output "*" bg /home/rmw/Pictures/Wallpapers/ryako-nerdcore-header.png center
@@ -179,7 +178,8 @@ mode "launch-applications" {
     bindsym $mod+d exec --no-startup-id $menu
     # jumpapp
     bindsym t exec jumpapp $term
-    bindsym b exec jumpapp abrowser
+    # cpulimit so that the browser don't eats all CPU max 20%
+    bindsym b exec jumpapp cpulimit -l 20 abrowser
     bindsym d exec jumpapp arandr
     bindsym k exec jumpapp keepassxc
     bindsym e exec jumpapp emacs

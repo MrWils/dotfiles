@@ -28,4 +28,5 @@ export NODE_OPTIONS="--max_old_space_size=6144"
 # Use optirun with gamemode, just use lutris
 # export GAMEMODERUNEXEC="optirun"
 # TLP and bumblebee can cause issues, set this environment variable
-export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"
+export RUNTIME_PM_DRIVER_BLACKLIST="nvidia"
+#export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"
