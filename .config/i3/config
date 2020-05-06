@@ -52,6 +52,7 @@ for_window [instance="Godot_Engine"] floating enable
 # Automatically set display configuration
 exec autorandr --change
 exec lxqt-policykit-agent # policykit-agent
+exec picom -CGb -d :0 # prevent screen tearing
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -178,8 +179,9 @@ mode "launch-applications" {
     bindsym $mod+d exec --no-startup-id $menu
     # jumpapp
     bindsym t exec jumpapp $term
-    # cpulimit so that the browser don't eats all CPU max 20%
-    bindsym b exec jumpapp cpulimit -l 20 abrowser
+    # cpulimit so that the browser don't eats all CPU max 50%
+    # I have my browser profile in RAM, I highly recommed to do that
+    bindsym b exec jumpapp cpulimit -l 50 abrowser
     bindsym d exec jumpapp arandr
     bindsym k exec jumpapp keepassxc
     bindsym e exec jumpapp emacs

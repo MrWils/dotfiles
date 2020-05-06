@@ -52,6 +52,9 @@ compinit
 # No longer need cd to switch dirs
 setopt autocd
 
+# Add deploy to website script to PATH
+export PATH="/home/rmw/Documents/Projects/GitProjects/hugo-source-pages/hugo_build_and_deploy.sh:$PATH"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

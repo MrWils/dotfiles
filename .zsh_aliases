@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # aliases
 alias s='sudo'
 alias mount='sudo mount'
@@ -15,7 +13,7 @@ alias ls='ls -F --color=auto'
 alias grep='grep --color=auto'
 
 # Automatically create subdirectories with mkdir
-alias mkdir="sudo mkdir -pv"
+alias mkdir="mkdir -pv"
 
 # Command shortcuts
 alias st="st -f 'Hack-8' -t st zsh"
@@ -35,3 +33,4 @@ alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"
 alias swayconf="emacs /home/rmw/.config/sway/config"
 alias i3conf="emacs /home/rmw/.config/i3/config"
 alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"
+alias websiteorg="emacs /home/rmw/Documents/Projects/GitProjects/hugo-source-pages/content-org/website.org"

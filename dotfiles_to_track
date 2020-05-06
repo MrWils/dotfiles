@@ -16,3 +16,4 @@ dotfiles_to_track
 .config/i3/config
 .config/i3status/config
 .xinitrc
+.config/picom/picom.conf
