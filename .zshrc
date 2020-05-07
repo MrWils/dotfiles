@@ -9,6 +9,14 @@ bindkey '^[[1;5D' backward-word       # Ctrl-LeftArrow
 bindkey '^[[H' beginning-of-line      # Home
 bindkey '^H' beginning-of-line        # Ctrl-H
 
+# Run SSH agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi
+
 # Add aliases
 if [ -f .zsh_aliases ]; then
     source .zsh_aliases

@@ -2,6 +2,7 @@
 alias s='sudo'
 alias mount='sudo mount'
 alias umount='sudo umount'
+alias startx='ssh-agent startx'
 
 # Formatted directory listings
 alias ll='ls -lF --color=auto'
