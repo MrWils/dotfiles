@@ -48,11 +48,14 @@ for_window [instance="Godot_Engine"] floating enable
 # bindswitch --reload lid:off output $laptopScreen enable
 
 
+
 # RUN ON STARTUP
 # Automatically set display configuration
 exec autorandr --change
 exec lxqt-policykit-agent # policykit-agent
 exec picom -CGb -d :0 # prevent screen tearing
+exec sh /home/rmw/Documents/BashScripts/configure_keyboard.sh # configure keyboard and mouse
+exec sh /home/rmw/Documents/BashScripts/configure_pen_tablet.sh # configure pen tablet
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.

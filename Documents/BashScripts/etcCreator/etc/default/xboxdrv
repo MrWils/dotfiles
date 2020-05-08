@@ -1,0 +1,9 @@
+[xboxdrv]
+silent = true
+device-name = "Xbox 360 Wireless Receiver"
+next-controller = true
+next-controller = true
+next-controller = true
+next-controller = true
+[xboxdrv-daemon]
+dbus = disabled

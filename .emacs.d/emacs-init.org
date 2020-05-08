@@ -87,6 +87,9 @@ Require use-package.
  ;; Disable emacs beep
  visible-bell 1
 
+ ;; stop emacs from creating .#lock file links
+ create-lockfiles nil
+
  ;; Indentation variables
  custom-tab-width 2
  big-custom-tab-width 4)
@@ -178,6 +181,21 @@ Xah Lee has some great modes which are better as the defaults.
   :hook
   (css-mode . xah-css-mode)
   (css-mode . untabify-whole-buffer))
+#+END_SRC
+** Better autosave
+See http://ergoemacs.org/emacs/emacs_auto_save.html for more info.
+#+BEGIN_SRC emacs-lisp
+(defun xah-save-all-unsaved ()
+  "Save all unsaved files. no ask.
+Version 2019-11-05"
+  (interactive)
+  (save-some-buffers t ))
+
+;; when switching out of emacs, all unsaved files will be saved
+(add-hook 'focus-out-hook 'xah-save-all-unsaved)
+
+;; stop creating those #auto-save# files
+(setq auto-save-default nil)
 #+END_SRC
 ** Use async processes when it is possible
 #+BEGIN_SRC emacs-lisp
@@ -409,4 +427,4 @@ TODO: add ZNC.
                --x509cafile /home/ootput/.private/certs/CAs.pem
                --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h"
    "gnutls-cli --priority secure256 -p %p %h"))
-#+END_SRC
+#+END_SR
