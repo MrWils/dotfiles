@@ -1,0 +1,3 @@
+[submodule "Documents/BashScripts/bash-cloudflare-blocker"]
+	path = Documents/BashScripts/bash-cloudflare-blocker
+	url = https://gitlab.com/RobinWils/bash-cloudflare-blocker
