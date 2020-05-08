@@ -1,0 +1,2 @@
+* My dotfiles
+**I am not responsible for broken systems! Read every script before running it.**

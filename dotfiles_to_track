@@ -1,4 +1,6 @@
-.zsh_aliases .zshenv .zshrc
+.zsh_aliases
+.zshenv
+.zshrc
 .zprofile
 .config/sway
 .config/mpd/mpd.conf
@@ -7,6 +9,7 @@
 .config/kanshi/config
 .emacs
 .emacs.d/emacs-init.org
+.emacs.d/bookmarks
 .config/pulse/daemon.conf
 .asoundrc
 .config/waybar
@@ -17,4 +20,5 @@ dotfiles_to_track
 .config/i3status/config
 .xinitrc
 .config/picom/picom.conf
-/home/rmw/Documents/BashScripts/
+Documents/BashScripts/
+README.org
