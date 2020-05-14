@@ -1,0 +1,6 @@
+[Unit]
+Description=Firefox Slice
+Before=slices.target
+
+[Slice]
+CPUQuota=25%

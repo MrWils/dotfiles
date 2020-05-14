@@ -11,11 +11,27 @@ general {
 		interval = 5
 }
 
+order += "disk /"
+order += "cpu_usage"
+order += "memory"
 order += "volume master"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery all"
 order += "tztime local"
+
+disk "/" {
+    format = "Free storage space: %avail"
+}
+
+cpu_usage {
+	  format = "CPU: %usage"
+}
+
+memory {
+    format = "RAM: %used"
+    threshold_degraded = "10%"
+}
 
 wireless _first_ {
 		format_up = "W: %quality"

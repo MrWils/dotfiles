@@ -53,6 +53,7 @@ if echo "$answer" | grep -iq "^y" ;then
 fi
 
 cp -R ./etc/* /etc
+cp -R ./usr/* /usr
 
 if [ "$should_make_sysd_entries" = true ] ; then
     cp -R ./boot/* /boot

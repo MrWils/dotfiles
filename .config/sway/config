@@ -202,7 +202,7 @@ mode "launch-applications" {
 
     # jumpapp
     bindsym t exec jumpapp $term
-    bindsym b exec jumpapp brave
+    bindsym b exec jumpapp abrowser
     bindsym d exec jumpapp wdisplays
     bindsym k exec jumpapp keepassxc
     bindsym e exec jumpapp emacs

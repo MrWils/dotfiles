@@ -1,0 +1,26 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/sda2 - ssd
+UUID=d022fc2c-4bbf-421e-982d-dd0c7f54967f	/         	ext4     	noatime,nodiratime,commit=60	0 1
+
+# /dev/sda1 -ssd
+UUID=FE71-FEFE      	/boot     	vfat      	rw,relatime,,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
+
+tmpfs /tmp tmpfs defaults,noatime,size=15%,mode=1777 0 0
+
+# /dev/sdc1 - hdd
+UUID=db1e4561-7adf-4b0b-b3c1-b97cdc2e6df3	/var      	ext4      	rw,relatime	0 2
+
+# /dev/sdc2 - hdd
+UUID=09068b3a-537c-456b-91b8-dd0a4e27e1a8	/opt      	ext4      	rw,relatime	0 2
+
+# /dev/sdc3, does not work is a tmpfs so isn't needed either
+# UUID=187e5e2d-8a85-4c94-9137-8fb3d6854f44	/run      	ext4      	rw,relatime,stripe=4	0 2
+
+# /dev/sdc4 - hdd
+UUID=7bb1102d-54ff-43a8-a661-c3c3b74c8851	/home     	ext4      	rw,relatime	0 2
+
+# huge pages - see ../Documents/BashScripts/etcCreator/etc/security and archwiki
+hugetlbfs       /dev/hugepages  hugetlbfs       mode=01770,gid=78        0 0

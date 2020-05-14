@@ -227,12 +227,13 @@ Version 2019-11-05"
           (run-with-idle-timer 1 nil #'linum-update-current))))
 #+END_SRC
 ** Open files as root if necessary
+This didn't work correctly with Xah Fly Keys.
 #+BEGIN_SRC emacs-lisp
-(defadvice find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+  ;; (defadvice find-file (after find-file-sudo activate)
+  ;;   "Find file as root if necessary."
+  ;;   (unless (and buffer-file-name
+  ;;                (file-writable-p buffer-file-name))
+  ;;     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 #+END_SRC
 ** Better performance for big files
 #+BEGIN_SRC emacs-lisp

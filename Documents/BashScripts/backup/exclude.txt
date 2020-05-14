@@ -8,8 +8,10 @@
 /*/.steam/
 /*/.local/share/Trash/
 /*/.local/share/Steam/
+/*/.local/share/JetBrains/
 /*/GPUCache/
 /*/.thumbnails/
+/*/Documents/BashScripts/
 /*/Music/
 /*/Videos/
 /*/Public/

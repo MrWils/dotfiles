@@ -1,0 +1,2 @@
+# No powersaving on HDD disk
+ACTION=="add", SUBSYSTEM=="block", KERNEL=="sdc", RUN+="/usr/bin/hdparm -B 255 -S 0 /dev/sdc"
