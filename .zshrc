@@ -23,15 +23,21 @@ if [ -f .zsh_aliases ]; then
 fi
 
 # Function which adds changed dotfiles to git stage
-track-dotfiles () {
+track_dotfiles () {
 		for dotfile in `cat dotfiles_to_track`; do
 				git add -f $dotfile
 		done
 }
 
+# Function which you can limit cpu with like:
+# limit_cpu firefox
+limit_cpu () {
+    systemd-run --user --scope -p CPUQuota=25% $1
+}
+
 # Run dotfiles function if the dotfiles_to_track file exists
 if [ -f dotfiles_to_track ]; then
-	 track-dotfiles
+	 track_dotfiles
 fi
 
 # Enable colors

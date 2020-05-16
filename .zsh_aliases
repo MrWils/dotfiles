@@ -31,6 +31,7 @@ alias unzipKeepDirName='for i in *.zip; do sudo unzip "$i" -d "${i%%.zip}"; done
 
 # Directory shortcuts
 alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"
+alias bashscriptsdir="cd /home/rmw/Documents/BashScripts"
 alias swayconf="emacs /home/rmw/.config/sway/config"
 alias i3conf="emacs /home/rmw/.config/i3/config"
 alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"

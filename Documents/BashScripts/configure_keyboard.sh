@@ -13,14 +13,9 @@ if [ -n ${ergodox_device_id} ]; then setxkbmap -device $ergodox_device_id us; fi
 
 # I prefer sticky keys over this, it usually spares me a keypress, unless I need capslock
 
-# Stickykeys. Don't turn on "latch lock", ie pressing a modifier key twice "locks" it on.
-# xkbset accessx sticky -twokey -latchlock
-# same thing with locking the modifier
-xkset accesx sticky -twokey
-
-# don't expire these settings. (run xkbset q exp to see your settings)
-# I don't use this since I want to have my settings in a config like this file
-# xkbset exp 1 =accessx =sticky =twokey =latchlock
+# Stickykeys
+xkbset sticky -twokey latchlock ## set sticky keys, don't disable via twokey
+xkbset exp 1 =sticky ## don't expire sticky keys
 
 # MOUSE SETTINGS
 # Swap middle button with right mouse button for "Logitech Lenovo USB Optical Mouse"
