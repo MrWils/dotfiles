@@ -22,4 +22,4 @@ dotfiles_to_track
 .config/picom/picom.conf
 Documents/BashScripts/
 README.org
-.config/autorandr
+.config/psd/psd.conf

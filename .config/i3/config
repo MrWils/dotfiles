@@ -12,7 +12,7 @@ focus_follows_mouse no
 workspace_layout tabbed
 
 # Set terminal emulator
-set $term st
+set $term st -f 'Hack-8' -t st zsh
 
 # Set menu with dmenu
 set $menu dmenu_run -fn 'Hack-10' -nb \#000
@@ -57,14 +57,14 @@ for_window [instance="Godot_Engine"] floating enable
 # RUN ON STARTUP
 # Automatically set display configuration
 exec autorandr --change
-exec lxqt-policykit-agent # policykit-agent
-exec picom -CGb -d :0 # prevent screen tearing
+#exec lxqt-policykit-agent # policykit-agent
+#exec picom -CGb -d :0 # prevent screen tearing
 exec sh /home/rmw/Documents/BashScripts/configure_keyboard.sh # configure keyboard and mouse
 exec sh /home/rmw/Documents/BashScripts/configure_pen_tablet.sh # configure pen tablet
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 
 exec $term
@@ -188,7 +188,7 @@ mode "launch-applications" {
     # jumpapp
     bindsym t exec jumpapp $term
     # limit browser CPU usage, I also run my browser in RAM
-    bindsym b exec jumpapp systemd-run --user --scope -p CPUQuota=25% abrowser
+    bindsym b exec jumpapp systemd-run --user --scope -p CPUQuota=25% brave
     bindsym d exec jumpapp arandr
     bindsym k exec jumpapp keepassxc
     bindsym e exec jumpapp emacs

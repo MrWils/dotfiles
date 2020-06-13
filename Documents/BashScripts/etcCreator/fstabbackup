@@ -3,24 +3,26 @@
 
 # <file system> <dir> <type> <options> <dump> <pass>
 # /dev/sda2 - ssd
-UUID=d022fc2c-4bbf-421e-982d-dd0c7f54967f	/         	ext4     	noatime,nodiratime,commit=60	0 1
+UUID=93fa15d7-01d2-4cf1-8558-327f74a7763d	/         	f2fs      	rw,noatime,lazytime,background_gc=on,discard,no_heap,inline_xattr,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,alloc_mode=default,fsync_mode=posix	0 0
 
-# /dev/sda1 -ssd
-UUID=FE71-FEFE      	/boot     	vfat      	rw,relatime,,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
-
-tmpfs /tmp tmpfs defaults,noatime,size=15%,mode=1777 0 0
+# /dev/sda1 - ssd
+UUID=C4E2-E624      	/boot     	vfat      	rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
 
 # /dev/sdc1 - hdd
-UUID=db1e4561-7adf-4b0b-b3c1-b97cdc2e6df3	/var      	ext4      	rw,relatime	0 2
+LABEL=VAR	/var      	ext4      	rw,noatime,commit=60	0 2
 
 # /dev/sdc2 - hdd
-UUID=09068b3a-537c-456b-91b8-dd0a4e27e1a8	/opt      	ext4      	rw,relatime	0 2
-
-# /dev/sdc3, does not work is a tmpfs so isn't needed either
-# UUID=187e5e2d-8a85-4c94-9137-8fb3d6854f44	/run      	ext4      	rw,relatime,stripe=4	0 2
+LABEL=OPT	/opt      	ext4      	rw,noatime,commit=60	0 2
 
 # /dev/sdc4 - hdd
-UUID=7bb1102d-54ff-43a8-a661-c3c3b74c8851	/home     	ext4      	rw,relatime	0 2
+LABEL=HOME	/home     	ext4      	rw,noatime,commit=60	0 2
+
+# swapfile  - hdd
+# It is in the home folder so that it is on the hdd, and not on the SSD
+/home/rmw/swapfile 	none 	swap 	defaults 	0 0
+
+# tmpfs for tmp
+tmpfs /tmp tmpfs defaults,noatime,size=15%,mode=1777 0 0
 
 # huge pages - see ../Documents/BashScripts/etcCreator/etc/security and archwiki
 hugetlbfs       /dev/hugepages  hugetlbfs       mode=01770,gid=78        0 0

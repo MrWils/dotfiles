@@ -25,8 +25,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # export KITTY_ENABLE_WAYLAND=1
 # Node stuff
 export NODE_OPTIONS="--max_old_space_size=6144"
-# Use optirun with gamemode, just use lutris
-export GAMEMODERUNEXEC="optirun"
-# TLP and bumblebee can cause issues, set this environment variable
-export RUNTIME_PM_DRIVER_BLACKLIST="nvidia"
-#export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"
+# Use optirun with gamemode if you use bumblebee, or use prime-run, all this nvidia stuff is way too confusing
+export GAMEMODERUNEXEC="prime-run"
+# TLP and bumblebee can cause issues, set this environment variable if needed
+# export RUNTIME_PM_DRIVER_BLACKLIST="nvidia"
+# export RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"

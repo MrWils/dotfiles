@@ -1,0 +1,6 @@
+[Unit]
+Description=Social media blocker
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bash Documents/BashScripts/only_social_media_in_the_weekend.sh
