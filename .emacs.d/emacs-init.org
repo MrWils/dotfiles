@@ -96,8 +96,8 @@ Require use-package.
 
 
 (setq-default
- ;; Mark column 80 in the header (Clean code matters)
- header-line-format (list " " (make-string 79 ?-) "|")
+ ;; Mark column 100 in the header (Clean code matters)
+ header-line-format (list " " (make-string 99 ?-) "|")
 
  ;; Force the messages to 0
  message-log-max nil

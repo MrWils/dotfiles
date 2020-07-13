@@ -3,6 +3,7 @@ alias s='sudo'
 alias mount='sudo mount'
 alias umount='sudo umount'
 alias startx='ssh-agent startx'
+alias resolve='gamemoderun /opt/resolve/bin/resolve'
 
 # Formatted directory listings
 alias ll='ls -lF --color=auto'
@@ -35,4 +36,4 @@ alias bashscriptsdir="cd /home/rmw/Documents/BashScripts"
 alias swayconf="emacs /home/rmw/.config/sway/config"
 alias i3conf="emacs /home/rmw/.config/i3/config"
 alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"
-alias websiteorg="emacs /home/rmw/Documents/Projects/GitProjects/hugo-source-pages/content-org/website.org"
+alias websitedir="emacs /home/rmw/Documents/Projects/GitProjects/hugo-source-pages/content-org/"
