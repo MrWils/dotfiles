@@ -103,11 +103,11 @@ Require use-package.
  message-log-max nil
 
  ;; Set the tab-width
- tab-width custom-tab-width
+ tab-width custom-tab-width)
 
  ;; Don't use tabs
  ;; use spaces instead
- indent-tabs-mode nil)
+ ;; indent-tabs-mode nil)
 #+END_SRC
 * HIDE GUI ELEMENTS
 #+BEGIN_SRC emacs-lisp
@@ -116,9 +116,6 @@ Require use-package.
 
 ;; Hide the toolbar
 (tool-bar-mode -1)
-
-;; Hide the scrollbar
-(toggle-scroll-bar -1)
 
 ;; Hide the menu bar (recommended)
 ;; (menu-bar-mode -1)
@@ -321,7 +318,11 @@ I want to automate the font installation in the future.
 (use-package gdscript-mode
    :ensure t
    :config
-   (setq gdscript-tabs-mode nil))
+   (standard-display-ascii ?\t ">|  ")
+   ;; Save all buffers and format them with gdformat anytime Godot executable is run.
+   (setq gdscript-gdformat-save-and-format t))
+;;   :config
+;;   (setq gdscript-tabs-mode nil))
 #+END_SRC
 * SPELLING AND GRAMMAR
 ** Flycheck and flyspell

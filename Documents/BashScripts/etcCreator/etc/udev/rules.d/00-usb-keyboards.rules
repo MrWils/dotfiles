@@ -1,0 +1,1 @@
+ACTION=="add", ATTRS{idVendor}=="feed", ATTRS{idProduct}=="1307", RUN+="/usr/local/bin/x-session-settings-background", OWNER="rmw"

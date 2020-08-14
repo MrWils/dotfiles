@@ -41,7 +41,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (xah-fly-keys xah-css-mode vlf use-package slime ox-hugo htmlize gdscript-mode flycheck diminish darktooth-theme async))))
+    (magit xah-fly-keys xah-css-mode vlf use-package slime ox-hugo htmlize gdscript-mode flycheck diminish darktooth-theme async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
