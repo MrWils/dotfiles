@@ -69,6 +69,10 @@ setopt autocd
 # Add deploy to website script to PATH
 export PATH="/home/rmw/Documents/Projects/GitProjects/hugo-source-pages/hugo_build_and_deploy.sh:$PATH"
 
+# Add CUDA to path, because annoying Nvidia stuff
+# export PATH="/opt/cuda/bin:$PATH"
+# Older CUDA version, because blender
+export PATH="/opt/cuda-10.1/bin:$PATH"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 # __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

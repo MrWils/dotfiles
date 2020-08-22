@@ -37,3 +37,7 @@ alias swayconf="emacs /home/rmw/.config/sway/config"
 alias i3conf="emacs /home/rmw/.config/i3/config"
 alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"
 alias websitedir="emacs /home/rmw/Documents/Projects/GitProjects/hugo-source-pages/content-org/"
+
+# Use prime
+alias blender="prime-run blender"
+alias godot="prime-run godot"
