@@ -1,3 +1,4 @@
+
 * LICENSE NOTICE AND CONFIGURATION COMMENTARY
 #+BEGIN_SRC emacs-lisp
 ;; Copyright (C) 2018-2020 Robin Wils
@@ -59,55 +60,115 @@ Require use-package.
 #+BEGIN_SRC emacs-lisp
 (eval-when-compile (require 'use-package))
 #+END_SRC
+* DEFAULT ENCORDING
+#+BEGIN_SRC emacs-lisp
+;; UTF-8 as default encoding
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
+#+END_SRC
+* WINDOWS SIZE AND THEME
+#+BEGIN_SRC emacs-lisp
+;; darktooth theme is also pretty nice if you prefer a dark theme.
+;;(use-package darktooth-theme
+;;  :ensure t
+;;  :config (load-theme 'darktooth t))
+
+;; Light theme
+(if (display-graphic-p)
+    (setq initial-frame-alist
+          '(
+            (tool-bar-lines . 0)
+            (background-color . "honeydew")
+            (width . 90)
+            (height . 52)))
+  (setq initial-frame-alist '( (tool-bar-lines . 0))))
+
+(setq default-frame-alist
+      '(
+        (tool-bar-lines . 0)
+        (background-color . "honeydew")
+        (width . 88)
+        (height . 50)))
+
+;; Emacs font
+(add-to-list 'default-frame-alist
+             '(font . "Hack-8"))
+#+END_SRC
 * VARIABLES
 #+BEGIN_SRC emacs-lisp
-(setq
- ;; Personal information
- user-full-name "Robin Wils"
- user-mail-address "mrwils@tutanota.com"
+  (setq
+   ;; Personal information
+   user-full-name "Robin Wils"
+   user-mail-address "mrwils@tutanota.com"
 
- ;; No startup message.
- inhibit-startup-message t
+   ;; No startup message.
+   inhibit-startup-message t
 
- ;; No startup-screen
- inhibit-startup-screen t
+   ;; No startup-screen
+   inhibit-startup-screen t
 
- ;; Empty scratch buffer
- initial-scratch-message nil
+   ;; Empty scratch buffer
+   initial-scratch-message nil
 
- ;; End sentences with one space
- sentence-end-double-space nil
+   ;; End sentences with one space
+   sentence-end-double-space nil
 
- ;; No backups
- make-backup-files nil
+   ;; No backups
+   make-backup-files nil
 
- ;; Disable dialogs
- use-dialog-box nil
+   ;; Disable dialogs
+   use-dialog-box nil
 
- ;; Disable emacs beep
- visible-bell 1
+   ;; Disable emacs beep
+   visible-bell 1
 
- ;; stop emacs from creating .#lock file links
- create-lockfiles nil
+   ;; stop emacs from creating .#lock file links
+   create-lockfiles nil
 
- ;; Indentation variables
- custom-tab-width 2
- big-custom-tab-width 4)
+   ;; stop creating #auto-save# files
+   auto-save-default nil
 
+   ;; Default directory, useful on windows
+   ;; default-directory "E:/Users/Robin Wils/Documents/"
+  )
+  (setq-default
+   ;; Mark column 100 in the header (Clean code matters)
+   header-line-format (list " " (make-string 99 ?-) "|")
 
-(setq-default
- ;; Mark column 100 in the header (Clean code matters)
- header-line-format (list " " (make-string 99 ?-) "|")
+   ;; Force the messages to 0
+   message-log-max nil
 
- ;; Force the messages to 0
- message-log-max nil
+   ;; Always indent with tab
+   tab-always-indent 'complete
 
- ;; Set the tab-width
- tab-width custom-tab-width)
+   ;; no mixed tab space
+   indent-tabs-mode nil
 
- ;; Don't use tabs
- ;; use spaces instead
- ;; indent-tabs-mode nil)
+   ;; Set the tab-width
+   tab-width 4)
+
+   ;; Don't use tabs
+   ;; use spaces instead
+   ;; indent-tabs-mode nil)
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+* ALIASES
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'rs 'replace-string)
+(defalias 'lcd 'list-colors-display)
+(defalias 'ds 'desktop-save)
+
+(defalias 'dsm 'desktop-save-mode)
+(defalias 'elm 'emacs-lisp-mode)
+(defalias 'hm 'html-mode)
+(defalias 'jsm 'js-mode)
+(defalias 'fm 'fundamental-mode)
+(defalias 'ssm 'shell-script-mode)
+(defalias 'om 'org-mode)
 #+END_SRC
 * HIDE GUI ELEMENTS
 #+BEGIN_SRC emacs-lisp
@@ -143,32 +204,90 @@ Require use-package.
 I use Xah Fly Keys Dvorak. QWERTY and other layout support for this mode
 exists.
 #+BEGIN_SRC emacs-lisp
-(use-package xah-fly-keys
-  :ensure t
-  :config
-  (setq xah-fly-use-control-key nil)
-  (setq xah-fly-use-meta-key nil)
-  (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
-  (xah-fly-keys-set-layout "dvorak")
-  (xah-fly-keys 1)
+  (use-package xah-fly-keys
+    :ensure t
+    :config
+    (setq xah-fly-use-control-key nil)
+    (setq xah-fly-use-meta-key nil)
+    (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+    (xah-fly-keys-set-layout "dvorak")
+    (xah-fly-keys 1)
 
-  (defun xah-replace-invisible-char ()
-    "Query replace some invisible Unicode chars.
-  The chars to be searched are:
-   ZERO WIDTH NO-BREAK SPACE (65279, #xfeff)
-   ZERO WIDTH SPACE (codepoint 8203, #x200b)
-   RIGHT-TO-LEFT MARK (8207, #x200f)
-   RIGHT-TO-LEFT OVERRIDE (8238, #x202e)
-   LEFT-TO-RIGHT MARK ‎(8206, #x200e)
-   OBJECT REPLACEMENT CHARACTER (65532, #xfffc)
+    (defun xah-replace-invisible-char ()
+      "Query replace some invisible Unicode chars.
+    The chars to be searched are:
+     ZERO WIDTH NO-BREAK SPACE (65279, #xfeff)
+     ZERO WIDTH SPACE (codepoint 8203, #x200b)
+     RIGHT-TO-LEFT MARK (8207, #x200f)
+     RIGHT-TO-LEFT OVERRIDE (8238, #x202e)
+     LEFT-TO-RIGHT MARK ‎(8206, #x200e)
+     OBJECT REPLACEMENT CHARACTER (65532, #xfffc)
 
-  Search begins at cursor position. (respects `narrow-to-region')
+    Search begins at cursor position. (respects `narrow-to-region')
 
-  URL `http://ergoemacs.org/emacs/elisp_unicode_replace_invisible_chars.html'
-  Version 2018-09-07"
-    (interactive)
-    (query-replace-regexp "\ufeff\\|\u200b\\|\u200f\\|\u202e\\|\u200e\\|\ufffc" "")))
+    URL `http://ergoemacs.org/emacs/elisp_unicode_replace_invisible_chars.html'
+    Version 2018-09-07"
+      (interactive)
+      (query-replace-regexp "\ufeff\\|\u200b\\|\u200f\\|\u202e\\|\u200e\\|\ufffc" "")))
+
+    (defun xah-html-youtube-linkify ()
+  "Make the current line of youtube url into a embeded video.
+
+The line can be any of
+
+ https://www.youtube.com/watch?v=RhYNu6i_uY4
+ https://www.youtube.com/watch?v=RhYNu6i_uY4?t=198
+ https://youtu.be/RhYNu6i_uY4
+ https://www.youtube.com/embed/RhYNu6i_uY4
+ RhYNu6i_uY4
+
+Here's sample result:
+
+<figure>
+<iframe width=\"640\" height=\"480\" src=\"https://www.youtube.com/embed/RhYNu6i_uY4\" allowfullscreen></iframe>
+<figcaption>
+</figcaption>
+</figure>
+
+URL `http://ergoemacs.org/emacs/elisp_embed_youtube_vid.html'
+Version 2020-08-27 2021-06-05"
+  (interactive)
+  (let ( $p1 $p2 $inputStr $id $timeStamp )
+    (re-search-backward "[ \n]")
+    (forward-char )
+    (setq $p1 (point))
+    (re-search-forward "[ \n]" )
+    (setq $p2 (point))
+    (setq $inputStr (buffer-substring-no-properties $p1 $p2))
+    (setq $timeStamp
+          (if (or
+               (string-match "t=\\([0-9]+\\)" $inputStr )
+               (string-match "time_continue=\\([0-9]+\\)" $inputStr ))
+              (match-string 1 $inputStr)
+            ""))
+    (setq $id (xah-html-get-youtube-id $inputStr))
+    (delete-region $p1 $p2)
+    (insert
+     (format "
+
+<figure>
+<iframe width=\"640\" height=\"480\" src=\"https://www.youtube.com/embed/%s%s\" allowfullscreen></iframe>
+<figcaption>
+</figcaption>
+</figure>
+
+"
+             $id
+             (if (string-equal $timeStamp "")
+                 ""
+               (concat "?start=" $timeStamp))))
+    (search-backward "</figcaption>" )
+    (backward-char 1)))
 #+END_SRC
+
+#+RESULTS:
+: xah-html-youtube-linkify
+
 ** Better modes
 Xah Lee has some great modes which are better as the defaults.
 #+BEGIN_SRC emacs-lisp
@@ -191,8 +310,7 @@ Version 2019-11-05"
 ;; when switching out of emacs, all unsaved files will be saved
 (add-hook 'focus-out-hook 'xah-save-all-unsaved)
 
-;; stop creating those #auto-save# files
-(setq auto-save-default nil)
+
 #+END_SRC
 ** Use async processes when it is possible
 #+BEGIN_SRC emacs-lisp
@@ -200,28 +318,29 @@ Version 2019-11-05"
 #+END_SRC
 ** Show line numbers
 #+BEGIN_SRC emacs-lisp
-(global-linum-mode 1)
-;; Start line numbers at 0
-(require 'linum)
-(setq linum-format
-      (lambda (line)
-        (propertize (number-to-string (1- line)) 'face 'linum)))
+(global-display-line-numbers-mode)
+;; (global-linum-mode 1)
+;; ;; Start line numbers at 0
+;; (require 'linum)
+;; (setq linum-format
+;;       (lambda (line)
+;;         (propertize (number-to-string (1- line)) 'face 'linum)))
 
-;; Stop line numbers from slowing down org-mode
-(with-eval-after-load "linum"
-  ;; set `linum-delay' so that linum uses `linum-schedule' to update linums.
-  (setq linum-delay t)
+;; ;; Stop line numbers from slowing down org-mode
+;; (with-eval-after-load "linum"
+;;   ;; set `linum-delay' so that linum uses `linum-schedule' to update linums.
+;;   (setq linum-delay t)
 
-  ;; create a new var to keep track of the current update timer.
-  (defvar-local my-linum-current-timer nil)
+;;   ;; create a new var to keep track of the current update timer.
+;;   (defvar-local my-linum-current-timer nil)
 
-  ;; rewrite linum-schedule so it waits for 1 second of idle time
-  ;; before updating, and so it only keeps one active idle timer going
-  (defun linum-schedule ()
-    (when (timerp my-linum-current-timer)
-      (cancel-timer my-linum-current-timer))
-    (setq my-linum-current-timer
-          (run-with-idle-timer 1 nil #'linum-update-current))))
+;;   ;; rewrite linum-schedule so it waits for 1 second of idle time
+;;   ;; before updating, and so it only keeps one active idle timer going
+;;   (defun linum-schedule ()
+;;     (when (timerp my-linum-current-timer)
+;;       (cancel-timer my-linum-current-timer))
+;;     (setq my-linum-current-timer
+;;           (run-with-idle-timer 1 nil #'linum-update-current))))
 #+END_SRC
 ** Open files as root if necessary
 This didn't work correctly with Xah Fly Keys.
@@ -282,28 +401,6 @@ The default C-z command minimizes GNU emacs. I don't like that.
 #+BEGIN_SRC emacs-lisp
 (use-package diminish :ensure t)
 #+END_SRC
-* THEME
-I like the darktooth theme and the Hack font.
-The Hack font needs to be installed on your system though.
-
-I want to automate the font installation in the future.
-#+BEGIN_SRC emacs-lisp
-(use-package darktooth-theme
-  :ensure t
-  :config (load-theme 'darktooth t))
-
-  ;; (setq default-frame-alist
-  ;;   '((background-color . "#282828")
-  ;; (foreground-color . "#EEEEEE")))
-
-  ;; (set-face-foreground 'mode-line "#EEEEEE")
-  ;; (set-face-background 'mode-line "#111111")
-  ;; (set-face-background 'mode-line-inactive "#444444")
-
-  ;; Emacs font
-  (add-to-list 'default-frame-alist
-               '(font . "Hack-8"))
-#+END_SRC
 * PROGRAMMING
 ** Lisp
 #+BEGIN_SRC emacs-lisp
@@ -357,10 +454,21 @@ Remove trailing whitespace
 #+BEGIN_SRC emacs-lisp
 (assq-delete-all 'org package--builtins)
 #+END_SRC
+** Some org mode settings
+#+BEGIN_SRC emacs-lisp
+(setq
+org-src-fontify-natively t
+org-startup-folded nil
+org-return-follows-link t
+org-startup-truncated nil
+org-startup-with-inline-images t)
+#+END_SRC
 ** ox-hugo
 Hugo support in org-mode
 #+BEGIN_SRC emacs-lisp
 (use-package ox-hugo :ensure t :after ox)
+;; (with-eval-after-load 'ox
+;;   (require 'ox-hugo))
 #+END_SRC
 ** org-mode better html export support
 #+BEGIN_SRC emacs-lisp

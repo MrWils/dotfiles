@@ -1,9 +1,0 @@
-[Unit]
-Description=Do something daily
-
-[Timer]
-OnCalendar=daily
-Persistent=true
-
-[Install]
-WantedBy=timer.target

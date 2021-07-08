@@ -12,7 +12,7 @@ focus_follows_mouse no
 workspace_layout tabbed
 
 # Set terminal emulator
-set $term st -f 'Hack-8' -t st zsh
+set $term st
 
 # Set menu with dmenu
 set $menu dmenu_run -fn 'Hack-10' -nb \#000
@@ -57,10 +57,18 @@ for_window [instance="Godot_Engine"] floating enable
 # RUN ON STARTUP
 # Automatically set display configuration
 exec autorandr --change
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
+exec redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | awk 'OFS=":" {print $3,$5}' | tr -d ',}')
 #exec lxqt-policykit-agent # policykit-agent
 #exec picom -CGb -d :0 # prevent screen tearing
 exec sh /home/rmw/Documents/BashScripts/configure_keyboard.sh # configure keyboard and mouse
 exec sh /home/rmw/Documents/BashScripts/configure_pen_tablet.sh # configure pen tablet
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.

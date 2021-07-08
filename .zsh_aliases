@@ -17,6 +17,12 @@ alias grep='grep --color=auto'
 # Automatically create subdirectories with mkdir
 alias mkdir="mkdir -pv"
 
+# Better dd
+alias dd="dcfldd"
+
+# Custom startx script
+alias startx="/home/rmw/startx"
+
 # Command shortcuts
 alias st="st -f 'Hack-8' -t st zsh"
 alias du="du -ach | sort -h"
