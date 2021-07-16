@@ -16,7 +16,6 @@ set $term kitty
 
 # Set menu with wofi
 set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
-
 # Window colors
 # client.focused_inactive #0d1010 #0d1010 #AAAAAA #0d1010 #0d1010
 # client.unfocused #0d1010 #0d1010 #888888 #0d1010 #0d1010

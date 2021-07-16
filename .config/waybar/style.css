@@ -18,7 +18,7 @@
 #memory,
 #temperature,
 #backlight,
-#network,
+#network,oeuoeu
 #pulseaudio,
 #custom-media,
 #tray,
@@ -27,18 +27,15 @@
 #mpd {
     padding: 0 10px;
     margin: 0 4px;
-    color: #ffffff;
 }
 
 #battery.charging {
-    color: #ffffff;
     background-color: #26A65B;
 }
 
 #battery.critical:not(.charging) {
     background-color: #f53c3c;
-    color: #ffffff;}
-
+}
 label:focus {
     background-color: #000000;
 }

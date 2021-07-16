@@ -45,7 +45,8 @@
       <property name="F8" type="string" value="jumpapp emacs"/>
       <property name="F10" type="string" value="jumpapp xfce4-terminal"/>
       <property name="F7" type="string" value="xfce4-popup-whiskermenu "/>
-      <property name="Print" type="string" value="maim -s /home/rmw/screen.png"/>
+      <property name="Print" type="string" value="/home/rmw/Documents/BashScripts/takeScreenshot.sh"/>
+      <property name="&lt;Super&gt;s" type="string" value="/home/rmw/Documents/BashScripts/takeScreenshot.sh"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

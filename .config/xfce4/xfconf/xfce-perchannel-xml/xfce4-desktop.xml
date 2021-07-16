@@ -50,8 +50,14 @@
       <property name="monitorDP-1-2-2" type="empty">
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="1"/>
-          <property name="last-image" type="string" value="/home/rmw/Pictures/Lain/lain4.png"/>
+          <property name="image-style" type="int" value="5"/>
+          <property name="last-image" type="string" value="/home/rmw/Pictures/dogs.png"/>
+          <property name="rgba1" type="array">
+            <value type="double" value="1.000000"/>
+            <value type="double" value="1.000000"/>
+            <value type="double" value="1.000000"/>
+            <value type="double" value="1.000000"/>
+          </property>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>

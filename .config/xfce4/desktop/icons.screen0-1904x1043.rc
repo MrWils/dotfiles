@@ -1,8 +1,12 @@
 [xfdesktop-version-4.10.3+-rcfile_format]
 4.10.3+=true
 
-[/home/rmw/Desktop/keybindTool]
+[/home/rmw/Desktop/lain.png]
 row=3
+col=0
+
+[/home/rmw/Desktop/lain-min.png]
+row=4
 col=0
 
 [Trash]

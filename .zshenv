@@ -6,7 +6,7 @@
 # Go lang
 # export GOPATH=$HOME/.go
 # Use dark gtk theme
-export GTK_THEME=Adwaita:dark
+#  export GTK_THEME=Adwaita:dark
 # Enable QT apps to have gtk theme
 # export QT_QPA_PLATFORMTHEME=qt5ct
 # Force wayland on qt apps

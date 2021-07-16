@@ -1,11 +1,12 @@
-echo "xrandr --setprovideroutputsource modesetting NVIDIA-0" > .xinitrc
-echo "xrandr --auto" >> .xinitrc
+# echo "xrandr --setprovideroutputsource modesetting NVIDIA-0" > .xinitrc
+# echo "xrandr --auto" >> .xinitrc
 
 if [ $1 = "steam" ]
 then
    echo "exec steamos-session" >> .xinitrc
 else
    pgrep mpd || exec mpd /home/rmw/.config/mpd/mpd.conf &
-   echo "exec startxfce4" >> .xinitrc
+   echo "labwc" >> .xinitrc
+   # echo "exec startxfce4" >> .xinitrc
 fi
 startx

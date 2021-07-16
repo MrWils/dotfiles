@@ -41,9 +41,13 @@ alias gitdir="cd /home/rmw/Documents/Projects/GitProjects"
 alias bashscriptsdir="cd /home/rmw/Documents/BashScripts"
 alias swayconf="emacs /home/rmw/.config/sway/config"
 alias i3conf="emacs /home/rmw/.config/i3/config"
-alias emacsconf="emacs /home/rmw/.emacs.d/emacs-init.org"
-alias websitedir="emacs /home/rmw/Documents/Projects/GitProjects/hugo-source-pages/content-org/"
+alias cde="cd /home/rmw/.emacs.d/emacs-init.org"
+alias cdw="cd /home/rmw/Documents/Projects/GitProjects/hugo-source-pages/content-org/"
 
 # Use prime
 alias blender="prime-run blender"
 alias godot="prime-run godot"
+
+# Variables for labwc
+alias st="st -f 'Hack-8' -t st zsh"
+alias brave="brave --enable-features=UseOzonePlatform --ozone-platform=wayland"
